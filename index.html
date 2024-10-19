@@ -13,9 +13,17 @@
             font-family: 'Roboto', sans-serif;
             margin: 0;
             padding: 0;
-            background: linear-gradient(to right, #f4f4f9, #e1e9ff);
+            background: linear-gradient(120deg, #3498db, #8e44ad, #2ecc71);
+            background-size: 200% 200%;
+            animation: gradientAnimation 10s ease infinite;
             color: #333;
             animation: fadeIn 1.5s ease-in-out;
+        }
+
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         @keyframes fadeIn {
@@ -164,15 +172,6 @@
             color: #007bff;
         }
 
-        .parallax {
-            background-image: url('your-background.jpg');
-            height: 500px;
-            background-attachment: fixed;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
-        }
-
         button {
             background: linear-gradient(45deg, #007bff, #00d4ff);
             color: white;
@@ -193,8 +192,6 @@
         <h1>Welcome to Chenghao Han's GitHub Page</h1>
     </header>
 
-    <div class="parallax"></div>
-
     <main>
         <section>
             <img src="path-to-your-image.jpg" alt="Your Profile Photo" class="profile-image">
@@ -204,8 +201,8 @@
 
         <section>
             <h2>Education</h2>
-            <p><strong>Shandong University of Science and Technology</strong> - Ph.D. in Geological Resources and Engineering, 2022</p>
-            <p><strong>Shandong University of Science and Technology</strong> - B.S. in Geological Engineering, 2017</p>
+            <p><strong>Shandong University of Science and Technology</strong> - Ph.D. in Geological Resources and Engineering, 7/2022</p>
+            <p><strong>Shandong University of Science and Technology</strong> - B.S. in Geological Engineering, 6/2017</p>
         </section>
 
         <section>
