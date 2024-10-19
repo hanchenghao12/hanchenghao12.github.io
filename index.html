@@ -4,13 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Name's GitHub</title>
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
             font-family: 'Roboto', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f9;
+            background: linear-gradient(to right, #f4f4f9, #e1e9ff);
             color: #333;
         }
         header {
@@ -35,22 +38,50 @@
             color: #24292e;
             margin-bottom: 0.5em;
         }
-        .projects-list {
-            list-style: none;
-            padding: 0;
+        .profile-image {
+            width: 150px;
+            border-radius: 50%;
+            display: block;
+            margin: 0 auto 1em;
         }
-        .projects-list li {
+        .projects-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        .project-card {
             background-color: white;
-            padding: 1em;
-            margin-bottom: 1em;
+            padding: 1.5em;
             border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        .project-card:hover {
+            transform: translateY(-10px);
         }
         footer {
             text-align: center;
             padding: 2em 0;
             background-color: #24292e;
             color: white;
+        }
+        footer a {
+            color: white;
+            margin: 0 10px;
+            text-decoration: none;
+        }
+        footer a:hover {
+            color: #007bff;
+        }
+        .social-icons {
+            margin-top: 1em;
+        }
+        .social-icons i {
+            margin: 0 10px;
+            transition: color 0.3s ease;
+        }
+        .social-icons i:hover {
+            color: #007bff;
         }
     </style>
 </head>
@@ -61,27 +92,33 @@
 
     <main>
         <section>
+            <img src="path-to-your-image.jpg" alt="Your Profile Photo" class="profile-image">
             <h2>About Me</h2>
             <p>Hi, I'm Your Name, a passionate developer and researcher in [your field]. I love to work on projects related to [your interests]. Here you can find some of my favorite projects and learn more about my work.</p>
         </section>
 
         <section>
             <h2>Projects</h2>
-            <ul class="projects-list">
-                <li>
+            <div class="projects-list">
+                <div class="project-card">
                     <h3><a href="https://github.com/yourusername/project1">Project 1</a></h3>
                     <p>Description of Project 1 and what it does.</p>
-                </li>
-                <li>
+                </div>
+                <div class="project-card">
                     <h3><a href="https://github.com/yourusername/project2">Project 2</a></h3>
                     <p>Description of Project 2 and its significance.</p>
-                </li>
-            </ul>
+                </div>
+            </div>
         </section>
     </main>
 
     <footer>
-        <p>Connect with me on <a href="https://www.linkedin.com/in/yourname" style="color: white;">LinkedIn</a> or <a href="https://twitter.com/yourhandle" style="color: white;">Twitter</a></p>
+        <p>Connect with me on:</p>
+        <div class="social-icons">
+            <a href="https://github.com/yourusername"><i class="fab fa-github fa-2x"></i></a>
+            <a href="https://www.linkedin.com/in/yourname"><i class="fab fa-linkedin fa-2x"></i></a>
+            <a href="https://twitter.com/yourhandle"><i class="fab fa-twitter fa-2x"></i></a>
+        </div>
     </footer>
 </body>
 </html>
