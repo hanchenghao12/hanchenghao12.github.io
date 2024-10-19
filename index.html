@@ -3,7 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Running Pixel Dog</title>
+    <title>Chenghao Han's GitHub Page</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
             font-family: 'Roboto', sans-serif;
@@ -54,12 +58,12 @@
             margin-bottom: 0.5em;
         }
 
-        /* 长方形背景容器，占满高度 */
+        /* 容器 */
         .profile-container {
             width: 100%;
-            height: 200px; /* 高度调整为200px */
+            height: 200px; /* 设置高度 */
             position: relative;
-            background-color: #f0f0f0;
+            background-color: transparent; /* 设置背景透明 */
             border-radius: 20px;
             overflow: hidden;
             margin-bottom: 1em;
@@ -69,7 +73,7 @@
         .pet {
             position: absolute;
             bottom: 0;
-            height: 100%; /* 小狗高度填充容器 */
+            height: 50px; /* 设置小狗高度为50px */
             animation: movePet 5s linear infinite;
         }
 
@@ -79,6 +83,129 @@
             100% { left: 100%; }  /* 跑向右边直到消失 */
         }
 
+        .projects-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .project-card {
+            position: relative;
+            overflow: hidden;
+            background-color: white;
+            padding: 1.5em;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .project-image {
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .project-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .project-card:hover .project-image {
+            transform: scale(1.1);
+        }
+
+        .project-card:hover .project-overlay {
+            opacity: 1;
+        }
+
+        .skills li {
+            list-style: none;
+            margin-bottom: 10px;
+        }
+
+        .skills li i {
+            margin-right: 10px;
+        }
+
+        .accordion-content {
+            display: none;
+            padding: 10px;
+            background-color: #f1f1f1;
+            margin-bottom: 10px;
+        }
+
+        .accordion h3 {
+            cursor: pointer;
+        }
+
+        .accordion h3:hover {
+            color: #007bff;
+        }
+
+        .accordion h3:active + .accordion-content {
+            display: block;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2em 0;
+            background-color: #24292e;
+            color: white;
+        }
+
+        footer a {
+            color: white;
+            margin: 0 10px;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: #007bff;
+        }
+
+        .social-icons {
+            margin-top: 1em;
+        }
+
+        .social-icons i {
+            margin: 0 10px;
+            transition: color 0.3s ease;
+        }
+
+        .social-icons i:hover {
+            color: #007bff;
+        }
+
+        button {
+            background: linear-gradient(45deg, #007bff, #00d4ff);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background: linear-gradient(45deg, #00d4ff, #007bff);
+        }
     </style>
 </head>
 <body>
@@ -88,7 +215,7 @@
 
     <main>
         <section>
-            <!-- 小狗占据整个背景区域 -->
+            <!-- 透明背景下的小狗动画 -->
             <div class="profile-container">
                 <img src="https://hanchenghao12.github.io/pet.jpg" alt="Pet" class="pet">
             </div>
@@ -96,6 +223,343 @@
             <h2>About Me</h2>
             <p>Hi, I'm Chenghao Han, a Postdoctoral Researcher at Shandong University of Science and Technology. I focus on geological hazard prediction and prevention. My research involves complex geological modeling and disaster risk mitigation in mining.</p>
         </section>
+
+        <section>
+            <h2>Education</h2>
+            <p><strong>Shandong University of Science and Technology</strong> - Ph.D. in Geological Resources and Engineering, 7/2022</p>
+            <p><strong>Shandong University of Science and Technology</strong> - B.S. in Geological Engineering, 6/2017</p>
+        </section>
+
+        <section>
+            <h2>Projects</h2>
+            <div class="projects-list">
+                <div class="project-card">
+                    <img src="https://hanchenghao12.github.io/123.jpg" alt="Project Image" class="project-image">
+                    <div class="project-overlay">
+                        <h3>Grouting Diffusion Mechanism</h3>
+                        <p>Investigation of grouting techniques in complex fractured networks.</p>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <img src="https://hanchenghao12.github.io/123.jpg" alt="Project Image" class="project-image">
+                    <div class="project-overlay">
+                        <h3>Hydraulic Property Analysis</h3>
+                        <p>Data-driven analysis of hydraulic properties in fracture networks.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Skills</h2>
+            <ul class="skills">
+                <li><i class="fab fa-python"></i> Python - 85%</li>
+                <li><i class="fab fa-js"></i> JavaScript - 90%</li>
+                <li><i class="fab fa-html5"></i> HTML5 - 95%</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Research Papers</h2>
+            <div class="accordion">
+                <h3>Data-driven Hydraulic Property Analysis</h3>
+                <div class="accordion-content">
+                    <p>This research focuses on hydraulic properties prediction using machine learning techniques. Published in *Computers and Geotechnics*, 2024.</p>
+                </div>
+                <h3>Quantitative Permeation Grouting</h3>
+                <div class="accordion-content">
+                    <p>Grouting in sand layers with focus on material properties. Published in *Construction and Building Materials*, 2022.</p>
+                </div>
+            </div>
+        </section>
     </main>
-</body>
-</html>
+
+    <footer>
+        <p>Connect with me on:</p>
+        <div class="social-icons">
+            <a href="https://github.com/yourusername"><i class="fab fa-github fa-2x"></i></a>
+            <a href="https://www.linkedin.com/in/yourname"><i class="这里是你更新的完整代码，包含透明背景下的小狗动画，并且小狗已经缩小成了合适的大小（50px）。你可以直接将这个代码用于你的 GitHub 主页：
+
+### **完整代码：**
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chenghao Han's GitHub Page</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(120deg, #3498db, #8e44ad, #2ecc71);
+            background-size: 200% 200%;
+            animation: gradientAnimation 10s ease infinite;
+            color: #333;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        header {
+            background-color: #24292e;
+            padding: 1.5em 0;
+            text-align: center;
+            color: white;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+
+        main {
+            padding: 2em;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        section {
+            margin-bottom: 2em;
+        }
+
+        h2 {
+            color: #24292e;
+            margin-bottom: 0.5em;
+        }
+
+        /* 容器 */
+        .profile-container {
+            width: 100%;
+            height: 200px; /* 设置高度 */
+            position: relative;
+            background-color: transparent; /* 设置背景透明 */
+            border-radius: 20px;
+            overflow: hidden;
+            margin-bottom: 1em;
+        }
+
+        /* 小狗图片跑动动画 */
+        .pet {
+            position: absolute;
+            bottom: 0;
+            height: 50px; /* 设置小狗高度为50px */
+            animation: movePet 5s linear infinite;
+        }
+
+        /* 小狗跑动的动画定义 */
+        @keyframes movePet {
+            0% { left: -100px; }  /* 从左边消失的地方开始 */
+            100% { left: 100%; }  /* 跑向右边直到消失 */
+        }
+
+        .projects-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .project-card {
+            position: relative;
+            overflow: hidden;
+            background-color: white;
+            padding: 1.5em;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .project-image {
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .project-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .project-card:hover .project-image {
+            transform: scale(1.1);
+        }
+
+        .project-card:hover .project-overlay {
+            opacity: 1;
+        }
+
+        .skills li {
+            list-style: none;
+            margin-bottom: 10px;
+        }
+
+        .skills li i {
+            margin-right: 10px;
+        }
+
+        .accordion-content {
+            display: none;
+            padding: 10px;
+            background-color: #f1f1f1;
+            margin-bottom: 10px;
+        }
+
+        .accordion h3 {
+            cursor: pointer;
+        }
+
+        .accordion h3:hover {
+            color: #007bff;
+        }
+
+        .accordion h3:active + .accordion-content {
+            display: block;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2em 0;
+            background-color: #24292e;
+            color: white;
+        }
+
+        footer a {
+            color: white;
+            margin: 0 10px;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: #007bff;
+        }
+
+        .social-icons {
+            margin-top: 1em;
+        }
+
+        .social-icons i {
+            margin: 0 10px;
+            transition: color 0.3s ease;
+        }
+
+        .social-icons i:hover {
+            color: #007bff;
+        }
+
+        button {
+            background: linear-gradient(45deg, #007bff, #00d4ff);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background: linear-gradient(45deg, #00d4ff, #007bff);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome to Chenghao Han's GitHub Page</h1>
+    </header>
+
+    <main>
+        <section>
+            <!-- 透明背景下的小狗动画 -->
+            <div class="profile-container">
+                <img src="https://hanchenghao12.github.io/pet.jpg" alt="Pet" class="pet">
+            </div>
+
+            <h2>About Me</h2>
+            <p>Hi, I'm Chenghao Han, a Postdoctoral Researcher at Shandong University of Science and Technology. I focus on geological hazard prediction and prevention. My research involves complex geological modeling and disaster risk mitigation in mining.</p>
+        </section>
+
+        <section>
+            <h2>Education</h2>
+            <p><strong>Shandong University of Science and Technology</strong> - Ph.D. in Geological Resources and Engineering, 7/2022</p>
+            <p><strong>Shandong University of Science and Technology</strong> - B.S. in Geological Engineering, 6/2017</p>
+        </section>
+
+        <section>
+            <h2>Projects</h2>
+            <div class="projects-list">
+                <div class="project-card">
+                    <img src="https://hanchenghao12.github.io/123.jpg" alt="Project Image" class="project-image">
+                    <div class="project-overlay">
+                        <h3>Grouting Diffusion Mechanism</h3>
+                        <p>Investigation of grouting techniques in complex fractured networks.</p>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <img src="https://hanchenghao12.github.io/123.jpg" alt="Project Image" class="project-image">
+                    <div class="project-overlay">
+                        <h3>Hydraulic Property Analysis</h3>
+                        <p>Data-driven analysis of hydraulic properties in fracture networks.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Skills</h2>
+            <ul class="skills">
+                <li><i class="fab fa-python"></i> Python - 85%</li>
+                <li><i class="fab fa-js"></i> JavaScript - 90%</li>
+                <li><i class="fab fa-html5"></i> HTML5 - 95%</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Research Papers</h2>
+            <div class="accordion">
+                <h3>Data-driven Hydraulic Property Analysis</h3>
+                <div class="accordion-content">
+                    <p>This research focuses on hydraulic properties prediction using machine learning techniques. Published in *Computers and Geotechnics*, 2024.</p>
+                </div>
+                <h3>Quantitative Permeation Grouting</h3>
+                <div class="accordion-content">
+                    <p>Grouting in sand layers with focus on material properties. Published in *Construction and Building Materials*, 2022.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Connect with me on:</p>
+        <div class="social-icons">
+            <a href="https://github.com/yourusername"><i class="fab fa-github fa-2x">
