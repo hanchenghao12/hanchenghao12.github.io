@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chenghao Han's GitHub</title>
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
@@ -13,73 +15,176 @@
             padding: 0;
             background: linear-gradient(to right, #f4f4f9, #e1e9ff);
             color: #333;
+            animation: fadeIn 1.5s ease-in-out;
         }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
         header {
             background-color: #24292e;
             padding: 1.5em 0;
             text-align: center;
             color: white;
         }
+
         h1 {
             margin: 0;
             font-size: 2.5em;
         }
+
         main {
             padding: 2em;
             max-width: 900px;
             margin: 0 auto;
         }
+
         section {
             margin-bottom: 2em;
         }
+
         h2 {
             color: #24292e;
             margin-bottom: 0.5em;
         }
+
         .profile-image {
             width: 150px;
             border-radius: 50%;
             display: block;
             margin: 0 auto 1em;
         }
+
         .projects-list {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 20px;
         }
+
         .project-card {
+            position: relative;
+            overflow: hidden;
             background-color: white;
             padding: 1.5em;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             transition: transform 0.3s ease;
         }
+
         .project-card:hover {
             transform: translateY(-10px);
         }
+
+        .project-image {
+            width: 100%;
+            transition: transform 0.3s ease;
+        }
+
+        .project-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .project-card:hover .project-image {
+            transform: scale(1.1);
+        }
+
+        .project-card:hover .project-overlay {
+            opacity: 1;
+        }
+
+        .skills li {
+            list-style: none;
+            margin-bottom: 10px;
+        }
+
+        .skills li i {
+            margin-right: 10px;
+        }
+
+        .accordion-content {
+            display: none;
+            padding: 10px;
+            background-color: #f1f1f1;
+            margin-bottom: 10px;
+        }
+
+        .accordion h3 {
+            cursor: pointer;
+        }
+
+        .accordion h3:hover {
+            color: #007bff;
+        }
+
+        .accordion h3:active + .accordion-content {
+            display: block;
+        }
+
         footer {
             text-align: center;
             padding: 2em 0;
             background-color: #24292e;
             color: white;
         }
+
         footer a {
             color: white;
             margin: 0 10px;
             text-decoration: none;
         }
+
         footer a:hover {
             color: #007bff;
         }
+
         .social-icons {
             margin-top: 1em;
         }
+
         .social-icons i {
             margin: 0 10px;
             transition: color 0.3s ease;
         }
+
         .social-icons i:hover {
             color: #007bff;
+        }
+
+        .parallax {
+            background-image: url('your-background.jpg');
+            height: 500px;
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        button {
+            background: linear-gradient(45deg, #007bff, #00d4ff);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background: linear-gradient(45deg, #00d4ff, #007bff);
         }
     </style>
 </head>
@@ -87,6 +192,8 @@
     <header>
         <h1>Welcome to Chenghao Han's GitHub Page</h1>
     </header>
+
+    <div class="parallax"></div>
 
     <main>
         <section>
@@ -105,24 +212,39 @@
             <h2>Projects</h2>
             <div class="projects-list">
                 <div class="project-card">
-                    <h3><a href="https://github.com/yourusername/project1">Data-driven Hydraulic Analysis</a></h3>
-                    <p>Prediction of two-dimensional random fracture networks using machine learning.</p>
+                    <img src="project1-image.jpg" alt="Project Image" class="project-image">
+                    <div class="project-overlay">
+                        <h3>Project 1</h3>
+                        <p>Click to learn more</p>
+                    </div>
                 </div>
                 <div class="project-card">
-                    <h3><a href="https://github.com/yourusername/project2">Grout Diffusion Simulation</a></h3>
-                    <p>Numerical investigation of grout diffusion under dynamic pressure conditions.</p>
+                    <img src="project2-image.jpg" alt="Project Image" class="project-image">
+                    <div class="project-overlay">
+                        <h3>Project 2</h3>
+                        <p>Click to learn more</p>
+                    </div>
                 </div>
             </div>
         </section>
 
         <section>
             <h2>Skills</h2>
-            <ul>
-                <li>Geotechnical Engineering</li>
-                <li>Data Analysis and Simulation</li>
-                <li>MATLAB, Python</li>
-                <li>Hydraulic and Geological Modeling</li>
+            <ul class="skills">
+                <li><i class="fab fa-python"></i> Python - 85%</li>
+                <li><i class="fab fa-js"></i> JavaScript - 90%</li>
+                <li><i class="fab fa-html5"></i> HTML5 - 95%</li>
             </ul>
+        </section>
+
+        <section>
+            <h2>Research Papers</h2>
+            <div class="accordion">
+                <h3>Research Paper Title</h3>
+                <div class="accordion-content">
+                    <p>Summary of the research and the impact...</p>
+                </div>
+            </div>
         </section>
     </main>
 
