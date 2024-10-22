@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chenghao Han's GitHub Page</title>
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
             font-family: 'Roboto', sans-serif;
@@ -39,6 +42,50 @@
         h2 {
             color: #24292e;
             margin-bottom: 0.5em;
+            border-bottom: 2px solid #24292e;
+            display: inline-block;
+            padding-bottom: 0.2em;
+        }
+
+        /* About Me 部分样式 */
+        .about-me {
+            display: flex;
+            align-items: center;
+            background-color: #fff;
+            padding: 1.5em;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .about-me img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 2em;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .about-me .info {
+            flex: 1;
+        }
+
+        .about-me .info h3 {
+            margin: 0;
+            font-size: 1.8em;
+            color: #24292e;
+        }
+
+        .about-me .info p.position {
+            margin: 0.2em 0 1em 0;
+            font-size: 1.1em;
+            color: #555;
+        }
+
+        .about-me .info p.description {
+            font-size: 1em;
+            line-height: 1.5em;
+            color: #555;
         }
 
         /* 小狗动画样式 */
@@ -49,7 +96,7 @@
             background-color: transparent;
             border-radius: 20px;
             overflow: hidden;
-            margin-bottom: 0.5em;
+            margin-bottom: 1em;
         }
 
         .pet {
@@ -69,6 +116,10 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            background-color: #fff;
+            padding: 1.5em;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
 
         .leader, .members {
@@ -100,7 +151,7 @@
         /* 项目部分样式 */
         .projects-list {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 20px;
         }
 
@@ -149,6 +200,139 @@
         .project-card:hover .project-overlay {
             opacity: 1;
         }
+
+        /* Skills 部分样式 */
+        .skills {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .skills li {
+            background-color: #fff;
+            padding: 10px 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1em;
+        }
+
+        .skills li i {
+            color: #007bff;
+            font-size: 1.2em;
+        }
+
+        /* Research Papers 部分样式 */
+        .accordion {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            padding: 1em;
+        }
+
+        .accordion h3 {
+            margin: 0;
+            padding: 0.5em;
+            cursor: pointer;
+            position: relative;
+            font-size: 1.1em;
+            color: #24292e;
+        }
+
+        .accordion h3::after {
+            content: '\25BC';
+            position: absolute;
+            right: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .accordion h3.active::after {
+            transform: rotate(180deg);
+        }
+
+        .accordion-content {
+            display: none;
+            padding: 0.5em 1em;
+            background-color: #f9f9f9;
+            border-top: 1px solid #ddd;
+        }
+
+        /* Footer 部分样式 */
+        footer {
+            text-align: center;
+            padding: 2em 0;
+            background-color: #24292e;
+            color: white;
+        }
+
+        footer a {
+            color: white;
+            margin: 0 10px;
+            text-decoration: none;
+            font-size: 1.2em;
+        }
+
+        footer a:hover {
+            color: #007bff;
+        }
+
+        .social-icons {
+            margin-top: 1em;
+        }
+
+        .social-icons i {
+            margin: 0 10px;
+            transition: color 0.3s ease;
+        }
+
+        .social-icons i:hover {
+            color: #007bff;
+        }
+
+        /* 按钮样式（可选） */
+        button {
+            background: linear-gradient(45deg, #007bff, #00d4ff);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background: linear-gradient(45deg, #00d4ff, #007bff);
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .about-me {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .about-me img {
+                margin-right: 0;
+                margin-bottom: 1em;
+            }
+
+            .team-container {
+                padding: 1em;
+            }
+
+            .leader, .members {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .skills {
+                justify-content: center;
+            }
+        }
     </style>
 </head>
 <body>
@@ -158,10 +342,19 @@
 </header>
 
 <main>
-    <!-- 关于我部分 -->
+    <!-- About Me 部分 -->
     <section>
         <h2>About Me</h2>
-        <p>Hi, I'm Chenghao Han, a Postdoctoral Researcher at Shandong University of Science and Technology. I focus on geological hazard prediction and prevention. My research involves complex geological modeling and disaster risk mitigation in mining.</p>
+        <div class="about-me">
+            <img src="https://github.com/hanchenghao12/hanchenghao12.github.io/blob/main/pet.jpg" alt="Profile Photo">
+            <div class="info">
+                <h3>Chenghao Han</h3>
+                <p class="position">Postdoctoral Researcher</p>
+                <p class="description">
+                    Hi, I'm Chenghao Han, a Postdoctoral Researcher at Shandong University of Science and Technology. I focus on geological hazard prediction and prevention. My research involves complex geological modeling and disaster risk mitigation in mining.
+                </p>
+            </div>
+        </div>
     </section>
 
     <!-- 小狗动画部分 -->
@@ -175,8 +368,8 @@
     <section>
         <h2>Meet Our Team</h2>
 
-        <!-- 团队Leader部分 -->
         <div class="team-container">
+            <!-- 团队Leader部分 -->
             <div class="leader">
                 <img src="https://github.com/hanchenghao12/hanchenghao12.github.io/blob/main/pet.jpg" alt="Leader">
                 <h3>Leader Name</h3>
@@ -225,7 +418,56 @@
         </div>
     </section>
 
+    <!-- Skills 部分 -->
+    <section>
+        <h2>Skills</h2>
+        <ul class="skills">
+            <li><i class="fab fa-python"></i> Python - 85%</li>
+            <li><i class="fab fa-js"></i> JavaScript - 90%</li>
+            <li><i class="fab fa-html5"></i> HTML5 - 95%</li>
+        </ul>
+    </section>
+
+    <!-- Research Papers 部分 -->
+    <section>
+        <h2>Research Papers</h2>
+        <div class="accordion">
+            <h3>Data-driven Hydraulic Property Analysis</h3>
+            <div class="accordion-content">
+                <p>This research focuses on hydraulic properties prediction using machine learning techniques. Published in <em>Computers and Geotechnics</em>, 2024.</p>
+            </div>
+            <h3>Quantitative Permeation Grouting</h3>
+            <div class="accordion-content">
+                <p>Grouting in sand layers with focus on material properties. Published in <em>Construction and Building Materials</em>, 2022.</p>
+            </div>
+        </div>
+    </section>
 </main>
+
+<footer>
+    <p>Connect with me on:</p>
+    <div class="social-icons">
+        <a href="https://github.com/hanchenghao12"><i class="fab fa-github fa-2x"></i></a>
+        <a href="https://www.linkedin.com/in/yourname"><i class="fab fa-linkedin fa-2x"></i></a>
+        <a href="https://twitter.com/yourhandle"><i class="fab fa-twitter fa-2x"></i></a>
+    </div>
+</footer>
+
+<!-- JavaScript for Accordion -->
+<script>
+    const headers = document.querySelectorAll('.accordion h3');
+    headers.forEach(header => {
+        header.addEventListener('click', () => {
+            header.classList.toggle('active');
+            const content = header.nextElementSibling;
+            if (header.classList.contains('active')) {
+                content.style.display = 'block';
+            } else {
+                content.style.display = 'none';
+            }
+        });
+    });
+</script>
 
 </body>
 </html>
