@@ -41,6 +41,29 @@
             margin-bottom: 0.5em;
         }
 
+        /* 小狗动画样式 */
+        .profile-container {
+            width: 100%;
+            height: 200px;
+            position: relative;
+            background-color: transparent;
+            border-radius: 20px;
+            overflow: hidden;
+            margin-bottom: 0.5em;
+        }
+
+        .pet {
+            position: absolute;
+            bottom: 30px;
+            height: 50px;
+            animation: movePet 5s linear infinite;
+        }
+
+        @keyframes movePet {
+            0% { left: -100px; }
+            100% { left: 100%; }
+        }
+
         /* 团队部分样式 */
         .team-container {
             display: flex;
@@ -55,26 +78,13 @@
             margin-bottom: 2em;
         }
 
-        .leader img {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 1em;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
-
-        .members img {
+        .leader img, .members img {
             width: 100px;
             height: 100px;
             border-radius: 50%;
             object-fit: cover;
             margin: 1em;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
-
-        .leader, .member {
-            text-align: center;
         }
 
         .leader h3, .member h3 {
@@ -87,6 +97,58 @@
             font-size: 0.9em;
         }
 
+        /* 项目部分样式 */
+        .projects-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .project-card {
+            position: relative;
+            overflow: hidden;
+            background-color: white;
+            padding: 1.5em;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .project-image {
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .project-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .project-card:hover .project-image {
+            transform: scale(1.1);
+        }
+
+        .project-card:hover .project-overlay {
+            opacity: 1;
+        }
     </style>
 </head>
 <body>
@@ -96,9 +158,17 @@
 </header>
 
 <main>
+    <!-- 关于我部分 -->
     <section>
         <h2>About Me</h2>
         <p>Hi, I'm Chenghao Han, a Postdoctoral Researcher at Shandong University of Science and Technology. I focus on geological hazard prediction and prevention. My research involves complex geological modeling and disaster risk mitigation in mining.</p>
+    </section>
+
+    <!-- 小狗动画部分 -->
+    <section>
+        <div class="profile-container">
+            <img src="https://github.com/hanchenghao12/hanchenghao12.github.io/blob/main/pet.jpg" alt="Pet" class="pet">
+        </div>
     </section>
 
     <!-- 团队展示部分 -->
@@ -108,7 +178,7 @@
         <!-- 团队Leader部分 -->
         <div class="team-container">
             <div class="leader">
-                <img src="https://yourwebsite.com/leader.jpg" alt="Leader">
+                <img src="https://github.com/hanchenghao12/hanchenghao12.github.io/blob/main/pet.jpg" alt="Leader">
                 <h3>Leader Name</h3>
                 <p>Team Leader</p>
             </div>
@@ -116,19 +186,40 @@
             <!-- 团队成员部分 -->
             <div class="members">
                 <div class="member">
-                    <img src="https://yourwebsite.com/member1.jpg" alt="Member 1">
+                    <img src="https://github.com/hanchenghao12/hanchenghao12.github.io/blob/main/pet.jpg" alt="Member 1">
                     <h3>Member 1</h3>
                     <p>Researcher</p>
                 </div>
                 <div class="member">
-                    <img src="https://yourwebsite.com/member2.jpg" alt="Member 2">
+                    <img src="https://github.com/hanchenghao12/hanchenghao12.github.io/blob/main/pet.jpg" alt="Member 2">
                     <h3>Member 2</h3>
                     <p>Data Analyst</p>
                 </div>
                 <div class="member">
-                    <img src="https://yourwebsite.com/member3.jpg" alt="Member 3">
+                    <img src="https://github.com/hanchenghao12/hanchenghao12.github.io/blob/main/pet.jpg" alt="Member 3">
                     <h3>Member 3</h3>
                     <p>Engineer</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 项目展示部分 -->
+    <section>
+        <h2>Projects</h2>
+        <div class="projects-list">
+            <div class="project-card">
+                <img src="https://github.com/hanchenghao12/hanchenghao12.github.io/blob/main/pet.jpg" alt="Project 1" class="project-image">
+                <div class="project-overlay">
+                    <h3>Grouting Diffusion Mechanism</h3>
+                    <p>Investigation of grouting techniques in complex fractured networks.</p>
+                </div>
+            </div>
+            <div class="project-card">
+                <img src="https://github.com/hanchenghao12/hanchenghao12.github.io/blob/main/pet.jpg" alt="Project 2" class="project-image">
+                <div class="project-overlay">
+                    <h3>Hydraulic Property Analysis</h3>
+                    <p>Data-driven analysis of hydraulic properties in fracture networks.</p>
                 </div>
             </div>
         </div>
