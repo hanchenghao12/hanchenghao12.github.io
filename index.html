@@ -10,7 +10,7 @@
             font-family: 'Roboto', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f9;
+            background-color: #eaeaea; /* 更改了背景颜色 */
             color: #333;
         }
 
@@ -44,45 +44,13 @@
             padding-bottom: 0.2em;
         }
 
-        /* About Me 部分样式 */
-        .about-me {
-            display: flex;
-            align-items: center;
+        /* 白色边框样式 */
+        .white-box {
             background-color: #fff;
             padding: 1.5em;
             border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
-
-        .about-me img {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-right: 2em;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
-
-        .about-me .info {
-            flex: 1;
-        }
-
-        .about-me .info h3 {
-            margin: 0;
-            font-size: 1.8em;
-            color: #24292e;
-        }
-
-        .about-me .info p.position {
-            margin: 0.2em 0 1em 0;
-            font-size: 1.1em;
-            color: #555;
-        }
-
-        .about-me .info p.description {
-            font-size: 1em;
-            line-height: 1.5em;
-            color: #555;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2em;
         }
 
         /* 团队Leader部分样式 */
@@ -141,6 +109,100 @@
             color: #555;
         }
 
+        /* About Me 部分样式 */
+        .about-me {
+            display: flex;
+            align-items: center;
+            background-color: #fff;
+            padding: 1.5em;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .about-me img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 2em;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .about-me .info {
+            flex: 1;
+        }
+
+        .about-me .info h3 {
+            margin: 0;
+            font-size: 1.8em;
+            color: #24292e;
+        }
+
+        .about-me .info p.position {
+            margin: 0.2em 0 1em 0;
+            font-size: 1.1em;
+            color: #555;
+        }
+
+        .about-me .info p.description {
+            font-size: 1em;
+            line-height: 1.5em;
+            color: #555;
+        }
+
+        /* 项目部分样式 */
+        .projects-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .project-card {
+            position: relative;
+            overflow: hidden;
+            background-color: white;
+            padding: 1.5em;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .project-image {
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .project-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .project-card:hover .project-image {
+            transform: scale(1.1);
+        }
+
+        .project-card:hover .project-overlay {
+            opacity: 1;
+        }
+
     </style>
 </head>
 <body>
@@ -150,23 +212,8 @@
 </header>
 
 <main>
-    <!-- About Me 部分 -->
-    <section>
-        <h2>About Me</h2>
-        <div class="about-me">
-            <img src="https://hanchenghao12.github.io/me.jpg" alt="Profile Photo">
-            <div class="info">
-                <h3>Chenghao Han</h3>
-                <p class="position">Postdoctoral Researcher</p>
-                <p class="description">
-                    Hi, I'm Chenghao Han, a Postdoctoral Researcher at Shandong University of Science and Technology. I focus on geological hazard prediction and prevention. My research involves complex geological modeling and disaster risk mitigation in mining.
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <!-- 团队展示部分 -->
-    <section>
+    <!-- Meet Our Team 部分（放在最前）-->
+    <section class="white-box">
         <h2>Meet Our Team</h2>
 
         <!-- 团队Leader部分 -->
@@ -216,7 +263,335 @@
         </div>
     </section>
 
+    <!-- About Me 部分 -->
+    <section class="white-box">
+        <h2>About Me</h2>
+        <div class="about-me">
+            <img src="https://hanchenghao12.github.io/me.jpg" alt="Profile Photo">
+            <div class="info">
+                <h3>Chenghao Han</h3>
+                <p class="position">Postdoctoral Researcher</p>
+                <p class="description">
+                    Hi, I'm Chenghao Han, a Postdoctoral Researcher at Shandong University of Science and Technology. I focus on geological hazard prediction and prevention. My research involves complex geological modeling and disasterHere's the **complete code** based on your updated requirements:
+
+1. **"Meet Our Team"** now appears **before** the **"About Me"** section.
+2. Both sections have a **white border** and a subtle shadow.
+3. The **background color** is updated to light gray.
+4. The **"Projects"** section is placed after **"About Me"**, and the **"Papers"** section will follow.
+
+### **Complete Updated Code**:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chenghao Han's GitHub Page</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #eaeaea; /* Updated background color */
+            color: #333;
+        }
+
+        header {
+            background-color: #24292e;
+            padding: 1.5em 0;
+            text-align: center;
+            color: white;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+
+        main {
+            padding: 2em;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        section {
+            margin-bottom: 2em;
+        }
+
+        h2 {
+            color: #24292e;
+            margin-bottom: 0.5em;
+            border-bottom: 2px solid #24292e;
+            display: inline-block;
+            padding-bottom: 0.2em;
+        }
+
+        /* White box styling */
+        .white-box {
+            background-color: #fff;
+            padding: 1.5em;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2em;
+        }
+
+        /* Team leader and members */
+        .leader-container {
+            text-align: center;
+            margin-bottom: 2em;
+        }
+
+        .leader-container img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .leader-container h3 {
+            margin-top: 1em;
+            font-size: 1.5em;
+            color: #24292e;
+        }
+
+        .leader-container p {
+            font-size: 1em;
+            color: #555;
+        }
+
+        .members-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 20px;
+            justify-items: center;
+        }
+
+        .member {
+            text-align: center;
+        }
+
+        .member img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .member h4 {
+            margin-top: 0.5em;
+            font-size: 1.1em;
+            color: #24292e;
+        }
+
+        .member p {
+            font-size: 0.9em;
+            color: #555;
+        }
+
+        /* About Me Section */
+        .about-me {
+            display: flex;
+            align-items: center;
+            background-color: #fff;
+            padding: 1.5em;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .about-me img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 2em;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .about-me .info {
+            flex: 1;
+        }
+
+        .about-me .info h3 {
+            margin: 0;
+            font-size: 1.8em;
+            color: #24292e;
+        }
+
+        .about-me .info p.position {
+            margin: 0.2em 0 1em 0;
+            font-size: 1.1em;
+            color: #555;
+        }
+
+        .about-me .info p.description {
+            font-size: 1em;
+            line-height: 1.5em;
+            color: #555;
+        }
+
+        /* Projects Section */
+        .projects-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .project-card {
+            position: relative;
+            overflow: hidden;
+            background-color: white;
+            padding: 1.5em;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .project-image {
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .project-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .project-card:hover .project-image {
+            transform: scale(1.1);
+        }
+
+        .project-card:hover .project-overlay {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Welcome to Chenghao Han's GitHub Page</h1>
+</header>
+
+<main>
+    <!-- Meet Our Team Section (before About Me) -->
+    <section class="white-box">
+        <h2>Meet Our Team</h2>
+
+        <!-- Team Leader -->
+        <div class="leader-container">
+            <img src="https://hanchenghao12.github.io/me.jpg" alt="Leader">
+            <h3>Leader Name</h3>
+            <p>Team Leader</p>
+        </div>
+
+        <!-- Team Members -->
+        <div class="members-container">
+            <div class="member">
+                <img src="https://hanchenghao12.github.io/me.jpg" alt="Member 1">
+                <h4>Member 1</h4>
+                <p>Researcher</p>
+            </div>
+            <div class="member">
+                <img src="https://hanchenghao12.github.io/me.jpg" alt="Member 2">
+                <h4>Member 2</h4>
+                <p>Data Analyst</p>
+            </div>
+            <div class="member">
+                <img src="https://hanchenghao12.github.io/me.jpg" alt="Member 3">
+                <h4>Member 3</h4>
+                <p>Engineer</p>
+            </div>
+            <div class="member">
+                <img src="https://hanchenghao12.github.io/me.jpg" alt="Member 4">
+                <h4>Member 4</h4>
+                <p>Developer</p>
+            </div>
+            <div class="member">
+                <img src="https://hanchenghao12.github.io/me.jpg" alt="Member 5">
+                <h4>Member 5</h4>
+                <p>Designer</p>
+            </div>
+            <div class="member">
+                <img src="https://hanchenghao12.github.io/me.jpg" alt="Member 6">
+                <h4>Member 6</h4>
+                <p>Research Assistant</p>
+            </div>
+            <div class="member">
+                <img src="https://hanchenghao12.github.io/me.jpg" alt="Member 7">
+                <h4>Member 7</h4>
+                <p>Tester</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Me Section -->
+    <section class="white-box">
+        <h2>About Me</h2>
+        <div class="about-me">
+            <img src="https://hanchenghao12.github.io/me.jpg" alt="Profile Photo">
+            <div class="info">
+                <h3>Chenghao Han</h3>
+                <p class="position">Postdoctoral Researcher</p>
+                <p class="description">
+                    Hi, I'm Chenghao Han, a Postdoctoral Researcher at Shandong University of Science and Technology. I focus on geological hazard prediction and prevention. My research involves complex geological modeling and disaster risk mitigation in mining.
+                </p>
+            </div>
+        </div>
+    </section>
+
+      <!-- Projects Section -->
+    <section class="white-box">
+        <h2>Projects</h2>
+        <div class="projects-list">
+            <div class="project-card">
+                <img src="https://hanchenghao12.github.io/me.jpg" alt="Project 1" class="project-image">
+                <div class="project-overlay">
+                    <h3>Project 1</h3>
+                    <p>Grouting Diffusion Mechanism: Investigation of grouting techniques in complex fractured networks.</p>
+                </div>
+            </div>
+            <div class="project-card">
+                <img src="https://hanchenghao12.github.io/me.jpg" alt="Project 2" class="project-image">
+                <div class="project-overlay">
+                    <h3>Project 2</h3>
+                    <p>Hydraulic Property Analysis: Data-driven analysis of hydraulic properties in fracture networks.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Papers Section -->
+    <section class="white-box">
+        <h2>Research Papers</h2>
+        <ul>
+            <li>Data-driven Hydraulic Property Analysis: Published in <em>Computers and Geotechnics</em>, 2024.</li>
+            <li>Quantitative Permeation Grouting: Published in <em>Construction and Building Materials</em>, 2022.</li>
+        </ul>
+    </section>
+
 </main>
 
 </body>
 </html>
+
