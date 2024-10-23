@@ -154,57 +154,28 @@
         }
 
         /* 项目部分样式 */
-        .projects-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1.3fr));
-            gap: 20px;
-        }
+       .project-box {
+    display: block;
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    margin: 0 auto;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
 
-        .project-card {
-            position: relative;
-            overflow: hidden;
-            background-color: white;
-            padding: 1.5em;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
-        }
+.project-box:hover {
+    transform: translateY(-5px); /* 鼠标悬停时上升效果 */
+}
 
-        .project-card:hover {
-            transform: translateY(-10px);
-        }
+.project-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 10px;
+}
 
-        .project-image {
-            width: 100%;
-            max-width: 500px;
-            margin: 0 auto;
-            display: block;
-            transition: transform 0.3s ease;
-        }
-
-        .project-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.5);
-            color: white;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .project-card:hover .project-image {
-            transform: scale(1.1);
-        }
-
-        .project-card:hover .project-overlay {
-            opacity: 1;
-        }
 
     </style>
 </head>
@@ -287,35 +258,14 @@
         <h2>Projects</h
 
 
-      <!-- Projects Section -->
-    <section class="white-box">
-        <h2>Projects</h2>
-        <div class="projects-list">
-            <div class="project-card">
-                <img src="https://hanchenghao12.github.io/me.jpg" alt="Project 1" class="project-image">
-                <div class="project-overlay">
-                    <h3>Project 1</h3>
-                    <p>Grouting Diffusion Mechanism: Investigation of grouting techniques in complex fractured networks.</p>
-                </div>
-            </div>
-            <div class="project-card">
-                <img src="https://hanchenghao12.github.io/me.jpg" alt="Project 2" class="project-image">
-                <div class="project-overlay">
-                    <h3>Project 2</h3>
-                    <p>Hydraulic Property Analysis: Data-driven analysis of hydraulic properties in fracture networks.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+   <!-- Projects Section -->
+<section class="white-box">
+    <h2>Projects</h2>
+    <a href="https://github.com/hanchenghao12/hanchenghao12.github.io" class="project-box">
+        <img src="https://hanchenghao12.github.io/123.jpg" alt="Project Image" class="project-image">
+    </a>
+</section>
 
-    <!-- Papers Section -->
-    <section class="white-box">
-        <h2>Research Papers</h2>
-        <ul>
-            <li>Data-driven Hydraulic Property Analysis: Published in <em>Computers and Geotechnics</em>, 2024.</li>
-            <li>Quantitative Permeation Grouting: Published in <em>Construction and Building Materials</em>, 2022.</li>
-        </ul>
-    </section>
 
 </main>
 
