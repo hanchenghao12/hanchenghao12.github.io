@@ -153,44 +153,43 @@
             color: #555;
         }
 
-    .project-box {
-    display: block;
-    width: 100%;
+   .project-box {
+    display: flex;
+    align-items: center;
     max-width: 600px;
     margin: 0 auto;
-    text-align: center;
+    background-color: #f4f4f9;
     border-radius: 10px;
-    overflow: hidden;
-    transition: transform 0.3s ease;
+    padding: 1em;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.project-box:hover {
-    transform: translateY(-5px); /* 悬停效果 */
-}
-
-.project-image {
-    width: 100%;
-    height: auto;
+.project-icon {
+    width: 100px;
+    height: 100px;
     object-fit: cover;
-    border-radius: 10px 10px 0 0;
+    margin-right: 20px;
+    border-radius: 10px;
 }
 
 .project-info {
-    background-color: #24292e;
-    color: white;
-    padding: 1em;
-    border-radius: 0 0 10px 10px;
+    flex-grow: 1;
+    text-align: left;
 }
 
-.project-info h3 {
-    margin: 0;
+.project-name {
+    font-family: 'Times New Roman', Times, serif;
     font-size: 1.5em;
+    font-style: italic;
+    margin: 0;
 }
 
-.project-info p {
-    margin-top: 0.5em;
+.project-description {
+    font-family: Arial, sans-serif;
     font-size: 1em;
+    margin-top: 0.5em;
 }
+
 
 
     </style>
@@ -269,16 +268,18 @@
         </div>
     </section>
 
-  <section class="white-box">
+<!-- Projects Section -->
+<section class="white-box">
     <h2>Projects</h2>
-    <a href="https://github.com/hanchenghao12/hanchenghao12.github.io" class="project-box">
-        <img src="https://hanchenghao12.github.io/123.jpg" alt="Project Image" class="project-image">
+    <div class="project-box">
+        <img src="https://hanchenghao12.github.io/123.jpg" alt="Software Icon" class="project-icon">
         <div class="project-info">
-            <h3>RacFracPro</h3>
-            <p>An open-source rock mass discrete fracture network simulation software.</p>
+            <h3 class="project-name">RacFracPro</h3>
+            <p class="project-description">An open-source software of rock mass discrete fracture network simulation</p>
         </div>
-    </a>
+    </div>
 </section>
+
 
 
 </main>
