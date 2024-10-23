@@ -196,14 +196,14 @@
 
 .project-name {
     font-family: 'Times New Roman', Times, serif;
-    font-size: 2em; /* 调大字体 */
+    font-size: 2em; /* 增大字体 */
     font-style: italic;
     margin: 0;
 }
 
 .project-description {
     font-family: Arial, sans-serif;
-    font-size: 1.2em; /* 调大字体 */
+    font-size: 1.2em;
     margin-top: 0.5em;
 }
 
@@ -285,17 +285,21 @@
         </div>
     </section>
 
-  <!-- Projects Section -->
+<!-- Projects Section -->
 <section class="white-box">
     <h2>Projects</h2>
     <div class="project-box">
         <img src="https://hanchenghao12.github.io/3.jpg" alt="Software Icon" class="project-icon">
         <div class="project-info">
-            <h3 class="project-name">RacFracPro</h3>
+            <!-- 确保 <h3> 标签嵌套在 <a> 标签中 -->
+            <a href="https://github.com/hanchenghao12/hanchenghao12.github.io" class="project-link">
+                <h3 class="project-name">RacFracPro</h3>
+            </a>
             <p class="project-description">An open-source software of rock mass discrete fracture network simulation</p>
         </div>
     </div>
 </section>
+
 
 
 </main>
