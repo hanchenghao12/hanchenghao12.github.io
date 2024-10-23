@@ -169,7 +169,7 @@
     border-radius: 10px;
     padding: 1em;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: left; /* 左对齐 */
+    text-align: left;
 }
 
 .project-icon {
@@ -182,19 +182,28 @@
 
 .project-info {
     flex-grow: 1;
-    text-align: left; /* 确保文字左对齐 */
+    text-align: left;
+}
+
+.project-link {
+    text-decoration: none; /* 去掉下划线 */
+    color: #24292e; /* 链接颜色 */
+}
+
+.project-link:hover {
+    text-decoration: underline; /* 悬停时显示下划线 */
 }
 
 .project-name {
     font-family: 'Times New Roman', Times, serif;
-    font-size: 2em; /* 增大字体 */
+    font-size: 2em; /* 调大字体 */
     font-style: italic;
     margin: 0;
 }
 
 .project-description {
     font-family: Arial, sans-serif;
-    font-size: 1.2em; /* 增大字体 */
+    font-size: 1.2em; /* 调大字体 */
     margin-top: 0.5em;
 }
 
