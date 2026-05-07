@@ -1,0 +1,490 @@
+2 二维离散裂隙网络
+2.1 离散裂隙网络建模与评价参数介绍
+2.1.1 离散裂隙网络建模参数
+裂隙中心点：泊松分布（Poisson Distributions）
+裂隙倾向：正态分布（Normal Distribution）、Fisher分布（Fisher Distribution）
+裂隙长度：幂律分布（Power Law）、指数分布（exponential Distribution）、对数正态分布（Lognormal Distribution）
+裂隙开度：正态分布（Normal Distribution）、对数正态分布（Lognormal Distribution）、裂隙开度w与裂隙长度l满足幂律相关关系（w=γlD，γ为常数1.2×10-4，D=0.5~1.0）
+裂隙密度：Pi j如何确定。
+裂隙间距：如何计算
+裂隙优势组
+2.1.2 裂隙网络连通性参数
+连通性指标Nc：基于愈渗理论（percolation theory），Robinson提出了连通性指标Nc：
+
+式中，Lt是裂隙总长度，NF是裂隙总数量，ρA是裂隙密度（单位面积裂隙数量）。
+标量测度F0：基于等效连续模型（equivalent continuum model），Oda提出了标量测度F0来反映渗透率和连通性之间的关系：
+
+式中，是裂隙长度的均方值（mean square value)
+连通性指标Ic：裂隙网络中裂隙交点个数Nnode与裂隙数量NF之比：
+
+无量纲密度ρA’：基于愈渗理论（percolation theory），提出的无量纲密度ρA’（dimensionless density）：
+
+式中，Aex为平均排除面积（average excluded area）, l为裂隙平均长度。
+连通性参数η：该参数是裂隙网络长度和连通性的组合：
+
+式中，εmean和ρseg分别是裂隙平均密度和节段密度(segment density)，A是区域面积。
+2.2 离散裂隙网络建模与评价主要函数
+2.2.1 建模主要分布函数用法
+① Poisson Distributions: x=poissrnd(lambda, n, 1)  说明：lambda为泊松分布的参数
+② Normal Distribution: x=normrnd(mu,sigma,n,1); 说明：mu,sigma为均值与标准差 
+③ Fisher Distribution: r=fisher_rnd(nu1, nu2, m, n) 说明：nu1、nu2为自由度，m、n为数组行、列
+④ Power Law: PowerLaw_rnd(alpha, xmin, n) 说明：xmin为分布的最小值，alpha为幂律指数 
+⑤ Truncated power-law distribution: Truncated_PowerLaw_rnd(alpha, xmin, xmax, n) 说明：xmin, xmax为分布的最小值与最大值，alpha为幂律指数
+⑥ Exponential distribution：x=exprnd(1/lambda, n, 1); 说明：lambda为指数分布参数。
+⑦ logarithmic normal distribution：r=lognor_rnd(mu,sigma,n) 说明：mu,sigma为均值与标准差 
+2.2.2 连通性评价函数用法
+① 连通性指标Nc：Nc=Cal_Connection_Nc(Frac_Information,DFN,Scale_chang,Scale_kuan)；
+② 标量测度F0：F0=Cal_Connection_F0(Frac_Information,DFN,Scale_chang,Scale_kuan)；
+③ 连通性指标Ic：Ic=Cal_Connection_Ic(Frac_pointdata)；
+④ 无量纲密度ρA’：lessdensity=Dimless_density(Frac_Information,DFN,Scale_chang,Scale_kuan)；
+⑤ 连通性参数η：Eta=Cal_Connection_Eta(Frac_Information,Frac_pointdata,DFN,Scale_chang,Scale_kuan)；
+2.3 离散裂隙网络建模与评价程序具体用法与流程
+① 定义优势裂隙组数：NumGroup_frac=2;
+② 定义研究范围：Scale_chang=10;Scale_kuan=10;
+③ 定义各裂隙组主要参数：DFN=xlsread('DFN.xlsx');
+模板
+裂隙组数	密度	倾向均值（角度）	倾向标准差	长度alpha	长度
+最小值	长度
+最大值	裂隙开度gama	裂隙开度D
+1	0.2	0	1	1	2	40	0.0001	1
+2	0.2	90	1	1	2	40	0.0001	1
+④ 生成裂隙参数函数Gen_Fracture：Fracture_Infor=Gen_Fracture(NumGroup_frac,DFN,Scale_chang,Scale_kuan);  
+其中，Fracture_Infor为[x1,y1,x2,y2,Frac_strike,Frac_aperture,Frac_length]
+⑤ 简化-简化边界函数Frac_deal：
+Frac_Information=Frac_deal(Fracture_Infor, Scale_chang, Scale_kuan);
+其中，Frac_Information为[x1,y1,x2,y2,Frac_strike,Frac_aperture,Frac_length]
+⑥识别裂隙交、端点、端点与孤立裂隙函数：Frac_point
+Frac_pointdata=Frac_point(Frac_Information,Scale_chang,Scale_kuan);
+其中Frac_pointdata为[x,y,No.Frac1,No.Frac2,Type, Num]，意为：No.Frac1与 No.Frac2的交点；Type=1，该点为交点；Type=0，该点为端点。此步骤可以生成图像
+⑦邻接矩阵计算函数：FracMatrix
+FracMatrix=Gen_FracMatrix(Frac_pointdata);
+其中，FracMatrix为邻接矩阵，用以分析流动路径。
+⑧等效裂隙网络生成函数：Eqva_Frac_Information
+Equ_Frac_Information=equ_FracGen(Frac_pointdata,Frac_Information,Scale_chang,Scale_kuan)
+具体函数代码
+ 总程序代码
+
+NumGroup_frac=2;%优势裂隙组数
+Scale_chang=10;%长
+Scale_kuan=10;%宽
+DFN=xlsread('DFN.xlsx');
+ 
+% 对初始裂隙进行生成
+Fracture_Infor=Gen_Fracture(NumGroup_frac,DFN,Scale_chang,Scale_kuan);  
+%对裂隙进行处理
+Frac_Information=Frac_deal(Fracture_Infor,Scale_chang,Scale_kuan);
+%识别交叉节点、端点与孤立裂隙
+Frac_pointdata=Frac_point(Frac_Information,Scale_chang,Scale_kuan);
+% 生成链接矩阵
+FracMatrix=Gen_FracMatrix(Frac_pointdata);
+%计算连通性Ic
+Ic=Cal_Connection_Ic(Frac_pointdata);
+%计算连通性Nc
+Nc=Cal_Connection_Nc(Frac_Information,DFN,Scale_chang,Scale_kuan);
+%计算连通性F0
+F0=Cal_Connection_F0(Frac_Information,DFN,Scale_chang,Scale_kuan);
+%计算无量纲密度ρA'
+lessdensity=Dimless_density(Frac_Information,DFN,Scale_chang,Scale_kuan);
+%计算连通性参数η
+Eta=Cal_Connection_Eta(Frac_Information,Frac_pointdata,DFN,Scale_chang,Scale_kuan);
+%等效裂隙网络生成
+Equ_Frac_Information=Equ_FracGen(Frac_pointdata,Frac_Information,Scale_chang,Scale_kuan)
+
+Gen_Fracture函数
+   function Fracture_Infor=Gen_Fracture(NumGroup_frac,DFN,Scale_chang,Scale_kuan)
+  Frac_Infor=[];
+  for Num=1:NumGroup_frac
+    Frac_density=DFN(Num,2);
+    Frac_strike_average=DFN(Num,3);
+    Frac_strike_sdeviation=DFN(Num,4);
+      Frac_length_alpha=DFN(Num,5);
+      Frac_length_min=DFN(Num,6);
+      Frac_length_max=DFN(Num,7);
+          Frac_aperture_gama=DFN(Num,8);
+          Frac_aperture_D=DFN(Num,9);
+    Area=Scale_chang*Scale_kuan;
+    Num_frac=Area*Frac_density;
+    Point_c=unifrnd(-Scale_chang/2,Scale_kuan/2,Num_frac,2);   %生成中心点坐标
+    Frac_strike=normrnd(Frac_strike_average, Frac_strike_sdeviation,Num_frac,1); 
+    Frac_length=Truncated_PowerLaw_rnd(Frac_length_alpha, Frac_length_min, Frac_length_max, Num_frac);
+    Frac_aperture=Frac_aperture_gama*(Frac_length.^Frac_aperture_D); %与长度相关
+    x1=Point_c(:,1)+(Frac_length ./2).*cos(Frac_strike*pi/180);
+    y1=Point_c(:,2)+(Frac_length ./2).*sin(Frac_strike*pi/180);
+    x2=Point_c(:,1)+(Frac_length ./2).*cos((Frac_strike+180)*pi/180);
+    y2=Point_c(:,2)+(Frac_length ./2).*sin((Frac_strike+180)*pi/180);
+    for  i=1:Num_frac
+        if  x1(i)>x2(i)
+            w=x2(i);
+            x2(i)=x1(i);
+            q=y2(i);
+            y2(i)=y1(i);
+            x1(i)=w;
+            y1(i)=q;
+        end
+      end    
+    Frac_Infor1=[x1,y1,x2,y2,Frac_strike,Frac_aperture,Frac_length];
+     if  isempty(Frac_Infor)
+      Frac_Infor=Frac_Infor1;
+    else
+       Frac_Infor=[Frac_Infor;Frac_Infor1];
+    end 
+end
+Fracture_Infor=Frac_Infor;
+
+
+Frac_deal函数
+ function    Frac_Information=Frac_deal(Frac_Infor,Scale_chang,Scale_kuan)
+       Frac_Infor(:,9)=(1:1:size(Frac_Infor,1));
+       Frac_Infor(:,10)=Frac_Infor(:,9);
+   %%%% 添加边界线
+   Numboundary=size(Frac_Infor,1);
+      Frac_Infor(Numboundary+1,1)=-Scale_chang/2;  Frac_Infor(Numboundary+1,2)=-Scale_kuan/2; Frac_Infor(Numboundary+1,3)=Scale_chang/2;Frac_Infor(Numboundary+1,4)=-Scale_kuan/2;Frac_Infor(Numboundary+1,5)=0;Frac_Infor(Numboundary+1,6)=0;Frac_Infor(Numboundary+1,7)=Numboundary+1;Frac_Infor(Numboundary+1,8)=Numboundary+1;
+      Frac_Infor(Numboundary+2,1)=-Scale_chang/2;  Frac_Infor(Numboundary+2,2)=Scale_kuan/2; Frac_Infor(Numboundary+2,3)=Scale_chang/2;Frac_Infor(Numboundary+2,4)=Scale_kuan/2;Frac_Infor(Numboundary+2,5)=0;Frac_Infor(Numboundary+2,6)=0;Frac_Infor(Numboundary+2,7)=Numboundary+2;Frac_Infor(Numboundary+2,8)=Numboundary+2;
+      Frac_Infor(Numboundary+3,1)=-Scale_chang/2;  Frac_Infor(Numboundary+3,2)=-Scale_kuan/2; Frac_Infor(Numboundary+3,3)=-Scale_chang/2;Frac_Infor(Numboundary+3,4)=Scale_kuan/2;Frac_Infor(Numboundary+3,5)=90;Frac_Infor(Numboundary+3,6)=0;Frac_Infor(Numboundary+3,7)=Numboundary+3;Frac_Infor(Numboundary+3,8)=Numboundary+3;
+      Frac_Infor(Numboundary+4,1)=Scale_chang/2;  Frac_Infor(Numboundary+4,2)=-Scale_kuan/2; Frac_Infor(Numboundary+4,3)=Scale_chang/2;Frac_Infor(Numboundary+4,4)=Scale_kuan/2;Frac_Infor(Numboundary+4,5)=90;Frac_Infor(Numboundary+4,6)=0;Frac_Infor(Numboundary+4,7)=Numboundary+4;Frac_Infor(Numboundary+4,8)=Numboundary+4;
+   %%边界条件限定
+     Boundarylocation_num=find(Frac_Infor(:,1)>Scale_chang/2);
+      if  size(Boundarylocation_num,1)>0
+     for i=1:size(Boundarylocation_num,1)    Eq1=polyfit(Frac_Infor(Boundarylocation_num(i),[1,3]),Frac_Infor(Boundarylocation_num(i),[2,4]),1);
+      Frac_Infor(Boundarylocation_num(i),1)=(Scale_chang/2);
+     Frac_Infor(Boundarylocation_num(i),2)=Eq1(1,1)*(Scale_chang/2)+Eq1(1,2);
+     end
+      end
+     Boundarylocation_num=find(Frac_Infor(:,1)<-Scale_chang/2); 
+       if  size(Boundarylocation_num,1)>0
+    for i=1:size(Boundarylocation_num,1)  Eq1=polyfit(Frac_Infor(Boundarylocation_num(i),[1,3]),Frac_Infor(Boundarylocation_num(i),[2,4]),1);
+        Frac_Infor(Boundarylocation_num(i),1)=(-Scale_chang/2);
+     Frac_Infor(Boundarylocation_num(i),2)=Eq1(1,1)*(-Scale_chang/2)+Eq1(1,2);
+    end
+       end
+       Boundarylocation_num=find(Frac_Infor(:,3)>Scale_chang/2);
+          if  size(Boundarylocation_num,1)>0
+       for i=1:size(Boundarylocation_num,1)
+Eq1=polyfit(Frac_Infor(Boundarylocation_num(i),[1,3]),Frac_Infor(Boundarylocation_num(i),[2,4]),1);
+        Frac_Infor(Boundarylocation_num(i),3)=(Scale_chang/2);
+     Frac_Infor(Boundarylocation_num(i),4)=Eq1(1,1)*(Scale_chang/2)+Eq1(1,2);
+       end
+          end
+    Boundarylocation_num=find(Frac_Infor(:,3)<-Scale_chang/2);
+       if  size(Boundarylocation_num,1)>0
+       for i=1:size(Boundarylocation_num,1)
+Eq1=polyfit(Frac_Infor(Boundarylocation_num(i),[1,3]),Frac_Infor(Boundarylocation_num(i),[2,4]),1);
+         Frac_Infor(Boundarylocation_num(i),3)=(-Scale_chang/2);
+     Frac_Infor(Boundarylocation_num(i),4)=Eq1(1,1)*(-Scale_chang/2)+Eq1(1,2);
+       end
+       end
+    Boundarylocation_num=find(Frac_Infor(:,2)>Scale_kuan/2);
+       if  size(Boundarylocation_num,1)>0
+       for i=1:size(Boundarylocation_num,1)
+Eq1=polyfit(Frac_Infor(Boundarylocation_num(i),[1,3]),Frac_Infor(Boundarylocation_num(i),[2,4]),1);
+       Frac_Infor(Boundarylocation_num(i),2)=(Scale_kuan/2);
+     Frac_Infor(Boundarylocation_num(i),1)=((Scale_kuan/2)-Eq1(1,2))/Eq1(1,1);
+       end
+       end
+      Boundarylocation_num=find(Frac_Infor(:,2)<-Scale_kuan/2); 
+         if  size(Boundarylocation_num,1)>0
+        for i=1:size(Boundarylocation_num,1)
+Eq1=polyfit(Frac_Infor(Boundarylocation_num(i),[1,3]),Frac_Infor(Boundarylocation_num(i),[2,4]),1);
+       Frac_Infor(Boundarylocation_num(i),2)=(-Scale_kuan/2);
+     Frac_Infor(Boundarylocation_num(i),1)=((-Scale_kuan/2)-Eq1(1,2))/Eq1(1,1);
+        end
+         end
+           Boundarylocation_num=find(Frac_Infor(:,4)>Scale_kuan/2);
+              if  size(Boundarylocation_num,1)>0
+        for i=1:size(Boundarylocation_num,1)
+Eq1=polyfit(Frac_Infor(Boundarylocation_num(i),[1,3]),Frac_Infor(Boundarylocation_num(i),[2,4]),1);
+           Frac_Infor(Boundarylocation_num(i),4)=(Scale_kuan/2);
+     Frac_Infor(Boundarylocation_num(i),3)=((Scale_kuan/2)-Eq1(1,2))/Eq1(1,1);
+        end
+              end
+       Boundarylocation_num=find(Frac_Infor(:,4)<-Scale_kuan/2); 
+          if  size(Boundarylocation_num,1)>0
+        for i=1:size(Boundarylocation_num,1)
+Eq1=polyfit(Frac_Infor(Boundarylocation_num(i),[1,3]),Frac_Infor(Boundarylocation_num(i),[2,4]),1);
+        Frac_Infor(Boundarylocation_num(i),4)=(-Scale_kuan/2);
+     Frac_Infor(Boundarylocation_num(i),3)=((-Scale_kuan/2)-Eq1(1,2))/Eq1(1,1);
+        end
+          end
+             Frac_Information=Frac_Infor(1:size(Frac_Infor,1)-4,1:7);
+
+Frac_point函数
+  function Frac_pointdata=Frac_point(Frac_Information,Scale_chang,Scale_kuan)
+          Frac_Infor=Frac_Information;
+          Dian=[];
+     %%%画图D
+     figure(1)
+rectangle('Position',[-Scale_chang/2,-Scale_chang/2,Scale_kuan,Scale_chang],'Linewidth',1,'LineStyle','-','EdgeColor','r')
+  axis([-Scale_chang/2-1 Scale_chang/2+1 -Scale_kuan/2-1 Scale_kuan/2+1])
+  hold on 
+          for  i=1:size(Frac_Infor,1)
+       L1=plot([Frac_Infor(i,1),Frac_Infor(i,3)], [Frac_Infor(i,2),Frac_Infor(i,4)],'color',[0.5 0.5 0.5]);
+         xlim([-Scale_chang/2-1,Scale_chang/2+1]);
+         ylim([-Scale_kuan/2-1,Scale_kuan/2+1]);
+            
+        hold on
+      end
+     for i=1:size(Frac_Infor,1)
+           p1=Frac_Infor(i,:); 
+           k1=(p1(2)-p1(4))/(p1(1)-p1(3));
+           b1=p1(2)-k1*p1(1);
+        for j=2:size(Frac_Infor,1)
+        p2=Frac_Infor(j,:);
+        k2=(p2(2)-p2(4))/(p2(1)-p2(3));
+        b2=p2(2)-k2*p2(1);
+           x=-(b1-b2)/(k1-k2);             %求两直线交点
+        y=-(-b2*k1+b1*k2)/(k1-k2);
+             if min(p1(1),p1(3))<=x && x<=max(p1(1),p1(3)) && ...
+           min(p1(2),p1(4))<=y && y<=max(p1(2),p1(4)) && ...
+           min(p2(1),p2(3))<=x && x<=max(p2(1),p2(3)) && ...
+           min(p2(2),p2(4))<=y && y<=max(p2(2),p2(4))  
+     S1=scatter(x,y,'+','r');
+      hold on
+       Dian1(j,:)=[x,y,i,j];
+             end
+        end
+        try
+         Dian=[Dian;Dian1];
+        catch
+        end
+     end
+     intersection_point=Dian;
+      intersection_point(all(intersection_point==0,2),:)=[];   %删除所有的0值
+   intersection_point=unique(intersection_point,'rows'); 
+    intersection_point=sortrows(intersection_point,[3,1]);
+   %%%交点特征值为1,端点特征值为0
+     intersection_point(:,5)=1;
+for i=1:size(Frac_Infor,1);
+    end_point1(i,1)=Frac_Infor(i,1);
+    end_point1(i,2)=Frac_Infor(i,2);
+     end_point2(i,1)=Frac_Infor(i,3);
+     end_point2(i,2)=Frac_Infor(i,4);
+    end_point1(i,3:4)=i;
+    end_point2(i,3:4)=i;
+end
+end_point=[end_point1;end_point2];    
+end_point(:,5)=0;
+clear end_point1 && end_point2
+   S2=scatter(end_point(:,1),end_point(:,2),'o','g');
+  xlabel('Scale','Fontsize',12);
+      ylabel('Scale','Fontsize',12);
+      hold off
+         legend('Fracture Network','Intersection Point','End Point');
+all_point=[end_point;intersection_point];
+all_point=unique(all_point,'rows');  
+all_point=sortrows(all_point,[3,1]);  %这是一个重要的矩阵 
+%%识别孤立裂隙
+ for i=1:max(all_point(:,3))
+    Same_num=find(all_point(:,3)==i);
+   if size(Same_num,1)==2
+       Frac_No=all_point(Same_num(1),3);
+              all_point(Same_num(1):Same_num(end),:)=[];
+                      Frac_Information(Frac_No,1:7)=0;
+   end
+ end
+    for i=1:1:size(all_point,1)
+all_point(i,6)=i;     %每个交点的编号ID
+    end
+    Frac_pointdata=all_point;
+
+Gen_FracMatrix函数
+function FracMatrix=Gen_FracMatrix(Frac_pointdata)
+end_point_num=find(Frac_pointdata(:,5)==0);
+end_point=Frac_pointdata(end_point_num,:);
+all_point=Frac_pointdata;
+        all_point_num=size(all_point,1);
+        end_point_num=size(end_point,1);
+         Fracture_Matrix=zeros(all_point_num,all_point_num);
+for j=1:end_point_num/2
+      for i=1:all_point_num-1
+    if all_point(i,3)==j && all_point(i+1,3)==j
+        Fracture_Matrix(all_point(i,6),all_point(i+1,6))=1;
+        Fracture_Matrix(all_point(i+1,6),all_point(i,6))=1;    
+    end
+  end
+end
+all_point=sortrows(all_point,[4,1]);
+ for j=1:end_point_num/2
+          for i=1:all_point_num-1
+        %      Nums=find(all_point(:,4)==i);
+        %      Daxiao=size(Nums,1);
+          %    if Daxiao>2
+               if all_point(i,4)==j && all_point(i+1,4)==j
+            Fracture_Matrix(all_point(i,6),all_point(i+1,6))=1;
+            Fracture_Matrix(all_point(i+1,6),all_point(i,6))=1;    
+               end
+          %    else
+           %   end
+     end
+ end
+all_point=sortrows(all_point,[6,1]);
+for i=1:size(all_point,1)
+    %查找重复数据
+Repeat_data=find(all(repmat([all_point(i,1),all_point(i,2)],size(all_point,1),1)==all_point(:,1:2),2));
+  No_data=find(Repeat_data==i);
+  Repeat_data(No_data)=[];
+    if all_point(Repeat_data-1,3)==all_point(Repeat_data,3)
+     Fracture_Matrix(i,all_point(Repeat_data-1,6))=1;
+     Fracture_Matrix(all_point(Repeat_data-1,6),i)=1;
+    end 
+      if all_point(Repeat_data+1,3)==all_point(Repeat_data,3)
+         Fracture_Matrix(i,all_point(Repeat_data+1,6))=1;
+         Fracture_Matrix(all_point(Repeat_data+1,6),i)=1;
+      end
+end
+   Copy_all_point=all_point;
+i=1;
+ while i<size(Copy_all_point,1)
+     Delte_No=find(all(repmat([Copy_all_point(i,1),Copy_all_point(i,2)],size(Copy_all_point,1),1)==Copy_all_point(:,1:2),2));
+     Set_No=find(Delte_No==i);
+     Delte_No(Set_No)=[];
+       Copy_all_point(Delte_No,:)=[];
+       Fracture_Matrix(Delte_No,:)=[];
+       Fracture_Matrix(:,Delte_No)=[];
+           i=i+1;
+ end
+      FracMatrix=Fracture_Matrix;
+
+Equ_FracGen函数
+Function Equ_Frac_Information=equ_FracGen(Frac_pointdata,Frac_Information,Scale_chang,Scale_kuan);
+%AAAAA=find(Frac_pointdata(:,5)==0);
+CCCCC=find(Frac_pointdata(:,5)==0 & abs(Frac_pointdata(:,1))~=5 & abs(Frac_pointdata(:,2))~=5);
+New_Frac_pointdata=Frac_pointdata;
+New_Frac_pointdata(CCCCC,:)=[];
+ for i=1:max(New_Frac_pointdata(:,3))
+    try
+       num=find(New_Frac_pointdata(:,3)==i);
+        xmin=min(num);
+        xmax=max(num);
+      %  if xmin~=xmax
+New_Frac_Information(i,1:2)=New_Frac_pointdata(xmin,1:2);
+ New_Frac_Information(i,3:4)=New_Frac_pointdata(xmax,1:2);
+     %   else
+%end
+    catch
+    end
+end
+ New_Frac_Information(:,5:7)=Frac_Information(:,5:7);
+  figure(5)
+rectangle('Position',[-Scale_chang/2,-Scale_chang/2,Scale_kuan,Scale_chang],'Linewidth',1,'LineStyle','-','EdgeColor','r')
+  axis([-Scale_chang/2-1 Scale_chang/2+1 -Scale_kuan/2-1 Scale_kuan/2+1])
+  hold on
+   for  i=1:size(New_Frac_Information,1)
+       L1=plot([New_Frac_Information(i,1),New_Frac_Information(i,3)], [New_Frac_Information(i,2),New_Frac_Information(i,4)],'color',[0.5 0.5 0.5]);
+          xlim([-Scale_chang/2-1,Scale_chang/2+1]);
+         ylim([-Scale_kuan/2-1,Scale_kuan/2+1]);
+        hold on
+   end
+   Eqva_Frac_Information=New_Frac_Information;
+Cal_Connection_Ic函数
+    %  计算联通性
+    %  计算单个裂隙的联通情况 Fracture_Matrix_forone
+    %  计算总的裂隙的联通情况 Fracture_num_total
+   
+function Ic=Cal_Connection_Ic(Frac_pointdata)
+     all_point=Frac_pointdata;
+ 
+for i=1:max(all_point(:,3))
+    Fracture_num_forone(i,1)=i;
+    Fracture_num_forone(i,2)=size(find(all_point(:,3)==i),1)-2;
+   
+end
+    Fracture_num_total(1,1)=max(all_point(:,3));
+    Fracture_num_total(1,2)=sum(Fracture_num_forone(:,2));       
+        Ic=Fracture_num_total(1,2)/Fracture_num_total(1,1);
+
+Cal_Connection_F0函数
+function F0=Cal_Connection_F0(Frac_Information,DFN,Scale_chang,Scale_kuan) 
+Total_Frac_density=sum(DFN(:,2));
+Lt=sum(Frac_Information(:,7));
+Nf=size(Frac_Information,1);
+Lave=Lt/Nf;
+F0=pi*Total_Frac_density*(Lave)^2/4;
+
+
+Cal_Connection_Nc函数
+function Nc=Cal_Connection_Nc(Frac_Information,DFN,Scale_chang,Scale_kuan)
+Total_Frac_density=sum(DFN(:,2));
+Lt=sum(Frac_Information(:,7));
+Nf=size(Frac_Information,1);
+Nc=(Lt/Nf)^2*Total_Frac_density;
+
+
+Dimless_density函数
+function lessdensity=Dimless_density(Frac_Information,DFN,Scale_chang,Scale_kuan)
+Total_Frac_density=sum(DFN(:,2));
+Lt=sum(Frac_Information(:,7));
+Nf=size(Frac_Information,1);
+Lave=Lt/Nf;
+Aex=2*(Lave)^2/pi;
+lessdensity=Total_Frac_density*Aex;
+
+Cal_Connection_Eta函数
+function Eta=Cal_Connection_Eta(Frac_Information,Frac_pointdata,DFN,Scale_chang,Scale_kuan)
+Total_Frac_density=sum(DFN(:,2));
+Lt=sum(Frac_Information(:,7));
+N_f=size(Frac_Information,1);
+Lave=Lt/N_f;
+E=Total_Frac_density*(Lave/2)^2;
+all_point=Frac_pointdata;
+for i=1:max(all_point(:,3))
+    Fracture_num_forone(i,1)=i;
+    Fracture_num_forone(i,2)=size(find(all_point(:,3)==i),1)-2;  
+end
+   N_node=sum(Fracture_num_forone(:,2));
+A=Scale_chang*Scale_kuan;
+den_seg=(N_f+2*N_node)/A;
+Eta=(A*E*den_seg)^0.5;
+ 
+ 
+Fisher_rnd函数
+function r = Fisher_rnd(nu1, nu2, m, n)   %% nu1，nu2为自由度，m，n为行、列
+% Syntax: r = fisher_rnd(nu1, nu2, m, n)
+%    nu1, nu2 - the degrees of freedom for the distribution
+%    m, n - the size of the output array
+%    r - an array of random numbers with the specified size
+% See also: fpdf, finv
+
+if nargin < 4
+    n = 1;
+end
+if nargin < 3
+    m = 1;
+End
+
+% Generate standard normal random variables
+z = randn(nu2, m*n);
+% Calculate chi-squared random variables
+x = sum(z.^2, 1);
+% Calculate Fisher random variables
+r = (nu1 * x) ./ (nu2 + nu1 * x);
+% Reshape output array to the specified size
+r = reshape(r, m, n);
+
+
+lognor_rnd函数
+ function r=lognor_rnd(mu,sigma,n)
+% 生成对数正态分布随机数
+r=exp(mu + sigma*randn(n,1));
+
+
+PowerLaw_rnd函数
+function r=PowerLaw_rnd(alpha,xmin,n)
+%分布的最小值xmin
+% 幂律指数alpha 
+% 生成的样本数量n 
+%生成符合幂律分布的随机数
+r = xmin * (1 - rand(n, 1)).^(-1/(alpha-1));
+% 绘制直方图
+Truncated_PowerLaw_rnd函数
+% 分布的最小值xmin  % 幂律指数alpha   % 分布的最大值xmax
+% 生成的样本数量n   % 生成符合截尾幂律分布的随机数
+function r=Truncated_PowerLaw_rnd(alpha,xmin,xmax,n)
+x = xmin + (xmax - xmin) .* rand(n, 1);
+y = x.^(-alpha) .* exp(-x./xmax);
+p =abs( y ./ trapz(x, y)); % 归一化
+% 使用归一化后的分布生成随机数
+x_rand = randsample(x, n, true, p);
+r=x_rand;
+
+
+
