@@ -1,1 +1,2 @@
 # hanchenghao12.github.io
+Welcome to my personal website. This site presents my background, research interests, project experience, and recent updates. For collaboration, inquiries, or further information, please feel free to contact me by email at sdusthch@163.com or via WeChat: hanchenghao.
