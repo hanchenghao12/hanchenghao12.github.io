@@ -1,0 +1,21 @@
+clc
+clear all
+
+NumGroup_frac=2;%优势裂隙组数
+Scale_chang=20;%长
+Scale_kuan=20;%宽
+Scale_Gao=20;%宽
+DFN=xlsread('DFN.xlsx');
+
+%%生成裂隙
+Fracture_Infor=Gen_3DFracture(NumGroup_frac,DFN,Scale_chang,Scale_kuan,Scale_Gao);
+%%
+point_c=Fracture_Infor.point_c;j_dd_dip=Fracture_Infor.j_dd_dip;
+Fracture_length=Fracture_Infor.Frac_length;
+Frac_aperture=Fracture_Infor.Frac_aperture;
+%% 生成邻接矩阵
+ [Num_frac,Matrix_frac]=Findfrac_connection(point_c,j_dd_dip,Fracture_length);
+%% 计算P32
+P32=CalP32(Fracture_length,Scale_chang,Scale_kuan,Scale_Gao);
+%% 计算三维分形维数，需要在内部更改各自尺寸
+rec_cv=Cal3DFractal(point_c,j_dd_dip,Fracture_length,Scale_chang,Scale_kuan,Scale_Gao);
