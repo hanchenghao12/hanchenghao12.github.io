@@ -1,0 +1,56 @@
+function Connection_Pairs=check_connectivity_and_visualize(FracMatrix, Frac_data, leftBoundaryFractures, rightBoundaryFractures)
+    % 创建图对象
+    G = graph(FracMatrix);
+
+    % 计算连通组件
+    components = conncomp(G);
+
+    % 检查左右边界处的裂隙是否连通
+    connectedPairs = [];
+    for i = 1:length(leftBoundaryFractures)
+        for j = 1:length(rightBoundaryFractures)
+            if components(Frac_data(leftBoundaryFractures(i), 3)) == components(Frac_data(rightBoundaryFractures(j), 3))
+                connectedPairs = [connectedPairs; Frac_data(leftBoundaryFractures(i), 3), Frac_data(rightBoundaryFractures(j), 3)];
+            end
+        end
+    end
+
+    % 输出结果
+    if ~isempty(connectedPairs)
+        disp('左右边界处的裂隙是连通的');
+        disp('连通的端点对如下：');
+        for k = 1:size(connectedPairs, 1)
+            fprintf('左边端点 %d 和 右边端点 %d 是连通的\n', connectedPairs(k, 1), connectedPairs(k, 2));
+        end
+    else
+        disp('左右边界处的裂隙不是连通的');
+    end
+
+    % 可视化连通组件
+    figure;
+    h = plot(G, 'Layout', 'force');
+    title('Fracture Network Connectivity');
+
+    % 使用不同颜色标记连通组件
+    componentColors = jet(max(components));
+    for i = 1:length(components)
+        highlight(h, i, 'NodeColor', componentColors(components(i), :));
+    end
+
+    % 高亮显示左右边界裂隙
+    highlight(h, Frac_data(leftBoundaryFractures, 3), 'NodeColor', 'r', 'MarkerSize', 8);
+    highlight(h, Frac_data(rightBoundaryFractures, 3), 'NodeColor', 'b', 'MarkerSize', 8);
+
+    % 高亮显示连通的端点对
+    %for k = 1:size(connectedPairs, 1)
+   %     highlight(h, connectedPairs(k, :), 'NodeColor', 'g', 'MarkerSize', 10);
+   % end
+
+    % 添加图例
+    hold on;
+    scatter(nan, nan, 'r', 'filled'); % 占位符用于图例
+    scatter(nan, nan, 'b', 'filled'); % 占位符用于图例
+   legend({'Path','Left Boundary Fractures', 'Right Boundary Fractures'}, 'Location', 'best');
+   % hold off;
+     Connection_Pairs=connectedPairs;
+end
