@@ -1,1 +1,50 @@
+clc
+clear all
+
+
+NumGroup_frac=2;%优势裂隙组数
+Scale_chang=20;%长
+Scale_kuan=20;%宽
+Scale_Gao=20;%宽
+DFN=xlsread('DFN.xlsx');
+
+
+% 对初始裂隙进行生成
+Fracture_Infor=Gen_Fracture(NumGroup_frac,DFN,Scale_chang,Scale_kuan);  
+%对裂隙进行处理
+Frac_Information=Frac_deal(Fracture_Infor,Scale_chang,Scale_kuan);
+%识别交叉节点、端点与孤立裂隙
+Frac_pointdata=Frac_point(Frac_Information,Scale_chang,Scale_kuan);
+%%处理重复的节点
+Frac_pointend1=dealrepatepoint(Frac_pointdata);
+%%记录初始交、端点以及密度、总长度
+Initialfracnetwork=Frac_inendpoint(Frac_pointend1,Frac_pointdata,Frac_Information,Scale_chang,Scale_kuan);
+% 生成链接矩阵
+%FracMatrix=Gen_FracMatrix(Frac_pointdata);
+%计算连通性Ic
+Ic=Cal_Connection_Ic(Initialfracnetwork);
+%计算无量纲密度ρA'
+lessdensity=Dimless_density(Initialfracnetwork,Scale_chang,Scale_kuan);
+%计算连通性参数η
+Eta=Cal_Connection_Eta(Initialfracnetwork,Scale_chang,Scale_kuan);
+list1=[Ic,lessdensity,Eta];
+
+
+%等效裂隙网络生成1
+Equ_Frac_Informationinitial=Equ_FracGen(Frac_pointdata,Frac_Information,Scale_chang,Scale_kuan);
+%识别交叉节点、端点与孤立裂隙
+Frac_pointdataend=Frac_point2(Equ_Frac_Informationinitial,Scale_chang,Scale_kuan);
+%等效裂隙网络生成2
+Equ_Frac_Informationend=Equ_FracGen(Frac_pointdataend,Equ_Frac_Informationinitial,Scale_chang,Scale_kuan);
+%%处理重复的节点
+Frac_pointend2=dealrepatepoint(Frac_pointdataend)
+%%记录等效交、端点以及密度、总长度
+Endfracnetwork=Frac_inendpoint(Frac_pointend2,Frac_pointdataend,Equ_Frac_Informationend,Scale_chang,Scale_kuan);
+%计算连通性Ic
+Ic1=Cal_Connection_Ic(Endfracnetwork);
+%计算无量纲密度ρA'
+lessdensity1=Dimless_density(Endfracnetwork,Scale_chang,Scale_kuan);
+%计算连通性参数η
+Eta1=Cal_Connection_Eta(Endfracnetwork,Scale_chang,Scale_kuan);
+list2=[Ic1,lessdensity1,Eta1];
 
