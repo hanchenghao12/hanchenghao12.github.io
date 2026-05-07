@@ -1,0 +1,179 @@
+model = mphload('F:\3D DFN\3DFracModel1_Rand11');
+
+
+n=1;
+Group_name=['geom', num2str(n)];
+%Group_name1=geom1.create(Group_name, 3);
+
+%%
+
+model.component('mod1').geom('geom1').run('fin');
+%
+model.component("mod1").geom("geom1").create("adjsel1", "AdjacentSelection");
+model.component("mod1").geom("geom1").feature("adjsel1").set("entitydim", 2);
+model.component("mod1").geom("geom1").feature("adjsel1").set("input", "sel_y_left");
+model.component("mod1").geom("geom1").feature("adjsel1").set("outputdim", 1);
+model.component("mod1").geom("geom1").feature("adjsel1").set("interior", true);
+model.component("mod1").geom("geom1").feature("adjsel1").set("exterior", false);
+
+model.component("mod1").geom("geom1").create("adjsel2", "AdjacentSelection");
+model.component("mod1").geom("geom1").feature("adjsel2").set("entitydim", 2);
+model.component("mod1").geom("geom1").feature("adjsel2").set("input", "sel_y_right");
+model.component("mod1").geom("geom1").feature("adjsel2").set("outputdim", 1);
+model.component("mod1").geom("geom1").feature("adjsel2").set("interior", true);
+model.component("mod1").geom("geom1").feature("adjsel2").set("exterior", false);
+
+model.component("mod1").geom("geom1").create("adjsel3", "AdjacentSelection");
+model.component("mod1").geom("geom1").feature("adjsel3").set("entitydim", 2);
+model.component("mod1").geom("geom1").feature("adjsel3").set("input", "sel_x_qian");
+model.component("mod1").geom("geom1").feature("adjsel3").set("outputdim", 1);
+model.component("mod1").geom("geom1").feature("adjsel3").set("interior", true);
+model.component("mod1").geom("geom1").feature("adjsel3").set("exterior", false);
+
+model.component("mod1").geom("geom1").create("adjsel4", "AdjacentSelection");
+model.component("mod1").geom("geom1").feature("adjsel4").set("entitydim", 2);
+model.component("mod1").geom("geom1").feature("adjsel4").set("input", "sel_x_hou");
+model.component("mod1").geom("geom1").feature("adjsel4").set("outputdim", 1);
+model.component("mod1").geom("geom1").feature("adjsel4").set("interior", true);
+model.component("mod1").geom("geom1").feature("adjsel4").set("exterior", false);
+
+model.component("mod1").geom("geom1").create("adjsel5", "AdjacentSelection");
+model.component("mod1").geom("geom1").feature("adjsel5").set("entitydim", 2);
+model.component("mod1").geom("geom1").feature("adjsel5").set("input", "sel_z_upper");
+model.component("mod1").geom("geom1").feature("adjsel5").set("outputdim", 1);
+model.component("mod1").geom("geom1").feature("adjsel5").set("interior", true);
+model.component("mod1").geom("geom1").feature("adjsel5").set("exterior", false);
+
+model.component("mod1").geom("geom1").create("adjsel6", "AdjacentSelection");
+model.component("mod1").geom("geom1").feature("adjsel6").set("entitydim", 2);
+model.component("mod1").geom("geom1").feature("adjsel6").set("input", "sel_z_lower");
+model.component("mod1").geom("geom1").feature("adjsel6").set("outputdim", 1);
+model.component("mod1").geom("geom1").feature("adjsel6").set("interior", true);
+model.component("mod1").geom("geom1").feature("adjsel6").set("exterior", false);
+
+
+%%程序运行
+
+grout_density=1000;
+grout_viscosity=0.001;
+soil_epsilon=0.001;
+input_pressure=1000000;
+output_pressure=0;
+
+%流体及基本属性设置
+model.component("mod1").physics("dl").feature("porous1").feature("fluid1").set("rho_mat", "userdef");
+model.component("mod1").physics("dl").feature("porous1").feature("fluid1").set("rho", "1000[kg/m^3]");
+model.component("mod1").physics("dl").feature("porous1").feature("fluid1").set("mu_mat", "userdef");
+model.component("mod1").physics("dl").feature("porous1").feature("fluid1").set("mu", "0.001[Pa*s]");
+
+model.component("mod1").physics("dl").feature("porous1").feature("pm1").set("epsilon_mat", "userdef");
+model.component("mod1").physics("dl").feature("porous1").feature("pm1").set("epsilon", 0.01);
+model.component("mod1").physics("dl").feature("porous1").feature("pm1").set("kappa_mat", "userdef");
+model.component("mod1").physics("dl").feature("porous1").feature("pm1").set("kappa",["9.87e-16[m^2]", "0", "0", "0", "9.87e-16[m^2]", "0", "0", "0", "9.87e-16[m^2]"]);
+
+%入口设置
+%%记得换入口
+model.component("mod1").physics("dl").create("inl1", "Inlet", 2);
+model.component("mod1").physics("dl").feature("inl1").selection().named("geom1_sel_y_left");
+model.component("mod1").physics("dl").feature("inl1").set("BoundaryCondition", "Pressure");
+model.component("mod1").physics("dl").feature("inl1").set("p0", 10);
+%%出口
+model.component("mod1").physics("dl").create("out1", "Outlet", 2);
+model.component("mod1").physics("dl").feature("out1").selection().named("geom1_sel_y_right");
+model.component("mod1").physics("dl").feature("out1").set("BoundaryCondition", "Pressure");
+model.component("mod1").physics("dl").feature("out1").set("p0", 0);
+%%剩余边界
+
+model.component("mod1").physics("dl").create("inl3", "Inlet", 2);
+model.component("mod1").physics("dl").feature("inl3").selection().named("geom1_sel_x_qian");
+model.component("mod1").physics("dl").feature("inl3").set("BoundaryCondition", "Pressure");
+model.component("mod1").physics("dl").feature("inl3").set("p0", "20-x");
+
+model.component("mod1").physics("dl").create("inl4", "Inlet", 2);
+model.component("mod1").physics("dl").feature("inl4").selection().named("geom1_sel_x_hou");
+model.component("mod1").physics("dl").feature("inl4").set("BoundaryCondition", "Pressure");
+model.component("mod1").physics("dl").feature("inl4").set("p0", "20-x");
+
+model.component("mod1").physics("dl").create("inl5", "Inlet", 2);
+model.component("mod1").physics("dl").feature("inl5").selection().named("geom1_sel_z_upper");
+model.component("mod1").physics("dl").feature("inl5").set("BoundaryCondition", "Pressure");
+model.component("mod1").physics("dl").feature("inl5").set("p0", "20-x");
+
+model.component("mod1").physics("dl").create("inl6", "Inlet", 2);
+model.component("mod1").physics("dl").feature("inl6").selection().named("geom1_sel_z_lower");
+model.component("mod1").physics("dl").feature("inl6").set("BoundaryCondition", "Pressure");
+model.component("mod1").physics("dl").feature("inl6").set("p0", "20-x");
+
+
+%创建裂隙流
+model.component("mod1").physics("dl").create("ff1", "FractureFlow", 2);
+model.component("mod1").physics("dl").feature("ff1").selection().named("geom1_csel1_bnd");
+model.component("mod1").physics("dl").feature("ff1").feature("dlm1").set("rho_mat", "userdef");
+model.component("mod1").physics("dl").feature("ff1").feature("dlm1").set("rho", '1000[kg/m^3]');
+model.component("mod1").physics("dl").feature("ff1").feature("dlm1").set("mu_mat", "userdef");
+model.component("mod1").physics("dl").feature("ff1").feature("dlm1").set("mu", '0.001[Pa*s]');
+model.component("mod1").physics("dl").feature("ff1").feature("dlm1").set("epsilonf_mat", "userdef");
+model.component("mod1").physics("dl").feature("ff1").feature("dlm1").set("epsilonf", 0.001);
+model.component("mod1").physics("dl").feature("ff1").feature("dlm1").set("ktype", "cubic");
+model.component("mod1").physics("dl").feature("ff1").feature("ap1").set("df", "aperture");
+
+
+%网格
+model.component("mod1").mesh("mesh1").create("ftri1", "FreeTri");
+model.component("mod1").mesh("mesh1").feature("ftri1").selection().geom("geom1");
+model.component("mod1").mesh("mesh1").feature("size").set("table", "cfd");
+model.component("mod1").mesh("mesh1").feature("size").set("hauto", 3);
+model.component("mod1").mesh("mesh1").run();
+
+%%运行研究
+model.study().create("std1");
+model.study("std1").create("stat", "Stationary");
+model.study("std1").run();
+
+
+
+model.result().create("pg1", "PlotGroup3D");
+model.result("pg1").create("surf1", "Surface");
+model.result("pg1").feature("surf1").create("sel1", "Selection");
+model.result("pg1").feature("surf1").feature("sel1").selection().named("geom1_csel1_bnd");
+model.result("pg1").feature("surf1").set("expr", "dl.U");
+model.result("pg1").feature("surf1").set("descr", "达西速度场");
+model.result("pg1").feature("surf1").set("rangecoloractive", true);
+model.result("pg1").feature("surf1").set("rangecolormax", 500);
+
+
+
+model.result().create("pg2", "PlotGroup3D");
+model.result("pg2").create("surf1", "Surface");
+model.result("pg2").feature("surf1").create("sel1", "Selection");
+model.result("pg2").feature("surf1").feature("sel1").selection().named("geom1_csel1_bnd");
+
+model.result("pg2").feature("surf1").set("expr", "p");
+model.result("pg2").feature("surf1").set("descr", "压力场");
+model.result("pg2").feature("surf1").set("rangecoloractive", true);
+model.result("pg2").feature("surf1").set("rangecolormax", 20);
+
+
+
+
+
+ figure(1)
+ mphplot(model,'pg1','rangenum',1)
+  figure(2)
+ mphplot(model,'pg2','rangenum',1)
+
+
+out = model;
+mphsave(model,'序号1-9');
+
+
+
+ 
+
+
+
+
+
+
+
+
