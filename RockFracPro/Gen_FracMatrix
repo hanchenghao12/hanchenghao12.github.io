@@ -1,0 +1,67 @@
+function FracMatrix=Gen_FracMatrix(Frac_data)
+
+
+end_point_num=find(Frac_data(:,5)==0);
+end_point=Frac_data(end_point_num,:);
+all_point=Frac_data;
+
+
+        all_point_num=size(all_point,1);
+        end_point_num=size(end_point,1);
+         Fracture_Matrix=zeros(all_point_num,all_point_num);
+
+for j=1:end_point_num/2
+      for i=1:all_point_num-1
+    if all_point(i,3)==j && all_point(i+1,3)==j
+        Fracture_Matrix(all_point(i,6),all_point(i+1,6))=1;
+        Fracture_Matrix(all_point(i+1,6),all_point(i,6))=1;    
+    end
+  end
+end
+
+all_point=sortrows(all_point,[4,1]);
+ for j=1:end_point_num/2
+          for i=1:all_point_num-1
+        %      Nums=find(all_point(:,4)==i);
+        %      Daxiao=size(Nums,1);
+          %    if Daxiao>2
+               if all_point(i,4)==j && all_point(i+1,4)==j
+            Fracture_Matrix(all_point(i,6),all_point(i+1,6))=1;
+            Fracture_Matrix(all_point(i+1,6),all_point(i,6))=1;    
+               end
+          %    else
+           %   end
+     end
+ end
+ 
+ 
+all_point=sortrows(all_point,[6,1]);
+
+for i=1:size(all_point,1)
+    %查找重复数据
+  Repeat_data=find(all(repmat([all_point(i,1),all_point(i,2)],size(all_point,1),1)==all_point(:,1:2),2));
+  No_data=find(Repeat_data==i);
+  Repeat_data(No_data)=[];
+    if all_point(Repeat_data-1,3)==all_point(Repeat_data,3)
+     Fracture_Matrix(i,all_point(Repeat_data-1,6))=1;
+     Fracture_Matrix(all_point(Repeat_data-1,6),i)=1;
+    end 
+      if all_point(Repeat_data+1,3)==all_point(Repeat_data,3)
+         Fracture_Matrix(i,all_point(Repeat_data+1,6))=1;
+         Fracture_Matrix(all_point(Repeat_data+1,6),i)=1;
+      end
+end
+   Copy_all_point=all_point;
+i=1;
+ while i<size(Copy_all_point,1)
+     Delte_No=find(all(repmat([Copy_all_point(i,1),Copy_all_point(i,2)],size(Copy_all_point,1),1)==Copy_all_point(:,1:2),2));
+     Set_No=find(Delte_No==i);
+     Delte_No(Set_No)=[];
+       Copy_all_point(Delte_No,:)=[];
+       Fracture_Matrix(Delte_No,:)=[];
+       Fracture_Matrix(:,Delte_No)=[];
+           i=i+1;
+ end
+      FracMatrix=Fracture_Matrix;
+        
+ 
