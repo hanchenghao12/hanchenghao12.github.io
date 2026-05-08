@@ -1,179 +1,240 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chenghao Han's GitHub Page</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Roboto', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #24292e;
-            color: #333;
-        }
-        header {
-            padding: 1.5em 0;
-            text-align: center;
-            color: white;
-        }
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hancheng Hao | RockFracPro</title>
+    <meta
+      name="description"
+      content="Personal research homepage for RockFracPro, a discrete fracture network simulation platform for fractured rock hydraulic analysis."
+    >
+    <link rel="stylesheet" href="assets/styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="Go to homepage">
+        <span class="brand-mark"><img src="assets/rockfracpro-avatar.jpg" alt=""></span>
+        <span>RockFracPro</span>
+      </a>
+      <nav class="nav" aria-label="Primary navigation">
+        <a href="#research">Research</a>
+        <a href="#software">Software</a>
+        <a href="#applications">Applications</a>
+        <a href="#publications">Publications</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <button class="menu-button" type="button" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span>
+        <span></span>
+      </button>
+    </header>
 
-        h1 {
-            margin: 0;
-            font-size: 2.5em;
-        }
-
-        main {
-            padding: 2em;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        section {
-            margin-bottom: 2em;
-        }
-
-        h2 {
-            color: #24292e;
-            margin-bottom: 0.5em;
-            border-bottom: 2px solid #24292e;
-            display: inline-block;
-            padding-bottom: 0.2em;
-        }
-
-        .white-box {
-            background-color: #fff;
-            padding: 1.0em;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            margin-bottom: 2em;
-        }
-
-        .about-me {
-            display: flex;
-            align-items: center;
-            background-color: #fff;
-            padding: 1.5em;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
-
-        .about-me img {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-right: 2em;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
-          
-        .about-me .info {
-            flex: 1;
-        }
-
-        .about-me .info h3 {
-            margin: 0;
-            font-size: 1.8em;
-            color: #24292e;
-        }
-
-        .about-me .info p.position {
-            margin: 0.2em 0 1em 0;
-            font-size: 1.1em;
-            color: #555;
-        }
-
-        .about-me .info p.description {
-            font-size: 1em;
-            line-height: 1.5em;
-            color: #555;
-        }
-
-        /* 项目部分样式 */
-        .project-box {
-            display: flex;
-            align-items: center;
-            max-width: 100%;
-            background-color: #fff;
-            border-radius: 10px;
-            padding: 1em;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            text-align: left;
-        }
-
-        .project-icon {
-            width: 100px;
-            height: 100px;
-            object-fit: cover;
-            margin-right: 20px;
-            border-radius: 10px;
-        }
-
-        .project-info {
-            flex-grow: 1;
-            text-align: left;
-        }
-
-        .project-link {
-            text-decoration: none; /* 去掉下划线 */
-            color: #24292e; /* 链接颜色 */
-        }
-
-        .project-link:hover {
-            text-decoration: underline; /* 悬停时显示下划线 */
-        }
-
-        .project-name {
-            font-family: 'Times New Roman', Times, serif;
-            font-size: 2em; /* 增大字体 */
-            font-style: italic;
-            margin: 0;
-        }
-
-        .project-description {
-            font-family: Arial, sans-serif;
-            font-size: 1.2em;
-            margin-top: 0.5em;
-        }
-    </style>
-</head>
-<body>
-
-<header>
-    <h1>Welcome to Chenghao Han's GitHub Page</h1>
-</header>
-
-<main>
-    <!-- About Me 部分 -->
-    <section class="white-box">
-        <h2>About Me</h2>
-        <div class="about-me">
-            <img src="https://hanchenghao12.github.io/me.jpg" alt="Profile Photo">
-            <div class="info">
-                <h3>Chenghao Han</h3>
-                <p class="position"></p>
-                <p class="description">
-                    Hi, I'm Chenghao Han, a Researcher at Shandong University of Science and Technology. I focus on geological hazard prediction and prevention. My research involves complex geological modeling and disaster risk mitigation in mining. More personal information can be found at: https://cms.sdust.edu.cn/info/1133/9545.htm.
-                </p>
-            </div>
+    <main id="top">
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">Discrete fracture network modelling · fractured rock hydraulics</p>
+          <h1>RockFracPro</h1>
+          <p class="lead">
+            RockFracPro is a MATLAB and COMSOL-coupled discrete fracture network simulation
+            platform for stochastic DFN generation, connectivity analysis, rough fracture flow
+            simulation, and equivalent permeability upscaling in fractured rock masses.
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="https://github.com/hanchenghao12/hanchenghao12.github.io" target="_blank" rel="noopener">Explore RockFracPro</a>
+            <a class="button secondary" href="#publications">View publications</a>
+          </div>
         </div>
-    </section>
+        <figure class="hero-visual">
+          <img src="assets/paper-media/image5.png" alt="Three-dimensional DFN slicing and visualization results">
+          <figcaption>3D DFN slicing and trace visualization generated by RockFracPro.</figcaption>
+        </figure>
+      </section>
 
-    <!-- Projects Section -->
-    <section class="white-box">
-        <h2>Projects</h2>
-        <div class="project-box">
-            <img src="https://hanchenghao12.github.io/3.jpg" alt="Software Icon" class="project-icon">
-            <div class="project-info">
-                <a href="https://github.com/hanchenghao12/hanchenghao12.github.io" class="project-link">
-                    <h3 class="project-name">RacFracPro</h3>
-                </a>
-                <p class="project-description">An open-source software for simulating discrete fracture networks in rock masses.</p>
-            </div>
+      <section class="profile-band" aria-label="Research profile">
+        <div class="portrait-card">
+          <img class="portrait-photo" src="assets/profile.jpg" alt="Portrait of Hancheng Hao">
+          <div>
+            <p class="small-label">About Me</p>
+            <h2>Han Chenghao</h2>
+            <p class="profile-text">
+              Hi, I'm Han Chenghao, a researcher at Shandong University of Science and Technology.
+              My work focuses on complex fracture network modelling and seepage, disaster risk
+              mitigation in mining engineering.
+              More personal information is available on my
+              <a href="https://cms.sdust.edu.cn/info/1133/9545.htm" target="_blank" rel="noopener">university profile</a>.
+            </p>
+          </div>
         </div>
-    </section>
-</main>
+        <div class="quick-stats" aria-label="Research highlights">
+          <div>
+            <strong>2D / 3D</strong>
+            <span>DFN generation and visualization</span>
+          </div>
+          <div>
+            <strong>COMSOL</strong>
+            <span>Automated hydraulic simulation workflow</span>
+          </div>
+          <div>
+            <strong>ML-ready</strong>
+            <span>Batch datasets for permeability prediction</span>
+          </div>
+        </div>
+      </section>
 
-</body>
+      <section class="section" id="research">
+        <div class="section-heading">
+          <p class="eyebrow">Research</p>
+          <h2>Understanding how fracture geometry controls fluid flow</h2>
+        </div>
+        <div class="research-grid">
+          <article>
+            <span class="number">01</span>
+            <h3>Fracture network characterization</h3>
+            <p>
+              Quantitative descriptors link fracture intensity, spatial distribution, topology,
+              and connectivity to the hydraulic response of rock masses.
+            </p>
+          </article>
+          <article>
+            <span class="number">02</span>
+            <h3>Hydraulic simulation</h3>
+            <p>
+              Programmatic coupling between MATLAB and COMSOL supports reproducible seepage
+              simulation, equivalent permeability evaluation, and anisotropy analysis.
+            </p>
+          </article>
+          <article>
+            <span class="number">03</span>
+            <h3>Data-driven prediction</h3>
+            <p>
+              Large ensembles of DFN realizations are used to connect geological parameters,
+              connectivity measures, and machine-learning-based permeability estimates.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="software-section" id="software">
+        <div class="software-copy">
+          <p class="eyebrow">Software</p>
+          <h2>RockFracPro</h2>
+          <p>
+            RockFracPro is an integrated DFN simulation platform designed for stochastic fracture
+            generation, rough fracture representation, connectivity analysis, flow simulation,
+            and permeability upscaling. The platform supports conventional fractured-rock
+            analysis and batch workflows for uncertainty quantification and data-driven modelling.
+          </p>
+          <ul class="feature-list">
+            <li>Stochastic 2D and 3D DFN generation with orientation, size, aperture, and density controls.</li>
+            <li>Arbitrary 3D slicing, trace extraction, and visualization for comparison with field observations.</li>
+            <li>Fast intersection detection and graph-based connectivity analysis for large DFN systems.</li>
+            <li>Rough fracture modelling with stress-dependent aperture evolution.</li>
+            <li>Automated COMSOL LiveLink workflows for flow simulation and equivalent permeability upscaling.</li>
+          </ul>
+        </div>
+        <div class="software-visual">
+          <img src="assets/paper-media/image8.png" alt="Connectivity paths and cluster analysis in 2D and 3D DFNs">
+        </div>
+      </section>
+
+      <section class="section" id="applications">
+        <div class="section-heading">
+          <p class="eyebrow">Applications</p>
+          <h2>Representative workflows</h2>
+        </div>
+        <div class="application-grid">
+          <article class="app-card">
+            <img src="assets/paper-media/image26.png" alt="Rough fracture aperture distribution under vertical stress">
+            <div>
+              <h3>Rough fracture aperture</h3>
+              <p>
+                RockFracPro builds rough fracture surfaces, evaluates aperture fields under loading,
+                and supports nonlinear seepage analysis through repeatable simulation batches.
+              </p>
+            </div>
+          </article>
+          <article class="app-card">
+            <img src="assets/paper-media/image3.png" alt="Two-dimensional and three-dimensional DFN examples">
+            <div>
+              <h3>Permeability prediction</h3>
+              <p>
+                Large 2D DFN datasets are used to study how fracture length distribution, orientation,
+                density, and connectivity influence equivalent permeability.
+              </p>
+            </div>
+          </article>
+          <article class="app-card wide">
+            <img src="assets/paper-media/image29.png" alt="Upscaled permeability tensor fields from DFN simulation">
+            <div>
+              <h3>DFN upscaling</h3>
+              <p>
+                Explicit fracture-scale responses are converted into heterogeneous continuum
+                permeability fields, enabling efficient multi-well flow simulations at engineering scale.
+              </p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section publication-section" id="publications">
+        <div class="section-heading">
+          <p class="eyebrow">Publications</p>
+          <h2>Selected papers and manuscripts</h2>
+        </div>
+        <div class="publication-list">
+          <article>
+            <div>
+              <h3>RockFracPro: An Integrated Platform for Rough Discrete Fracture Network Modeling and Multiscale Hydraulic Simulation</h3>
+              <p>Manuscript in preparation. Selected concepts are summarized on this page without reproducing the full unpublished text.</p>
+            </div>
+            <span class="status">In preparation</span>
+          </article>
+          <article>
+            <div>
+              <h3>Data-driven hydraulic property analysis and prediction of two-dimensional random fracture networks</h3>
+              <p>Connectivity, permeability tensors, and data-driven hydraulic property prediction for 2D random DFNs.</p>
+            </div>
+            <a href="assets/publications/data-driven-2d-dfn.pdf" target="_blank" rel="noopener">PDF</a>
+          </article>
+          <article>
+            <div>
+              <h3>Impact of connectivity characteristics on the permeability of three-dimensional fracture networks</h3>
+              <p>Analysis of how 3D network topology and connection patterns control permeability evolution.</p>
+            </div>
+            <a href="assets/publications/connectivity-permeability-3d-fracture-networks.pdf" target="_blank" rel="noopener">PDF</a>
+          </article>
+          <article>
+            <div>
+              <h3>Numerical investigation of an equivalent hydraulic aperture for rough rock fractures based on cosimulation</h3>
+              <p>Rough fracture geometry, nonlinear seepage behaviour, and equivalent hydraulic aperture prediction.</p>
+            </div>
+            <a href="assets/publications/equivalent-hydraulic-aperture-rough-fractures.pdf" target="_blank" rel="noopener">PDF</a>
+          </article>
+        </div>
+      </section>
+
+      <section class="contact-section" id="contact">
+        <div>
+          <p class="eyebrow">Contact</p>
+          <h2>Collaboration and research exchange</h2>
+          <p>
+            I am interested in DFN modelling, fractured rock hydraulics, permeability upscaling,
+            and data-driven prediction methods for underground engineering and georesource systems.
+          </p>
+        </div>
+        <div class="contact-card">
+          <a href="mailto:sdusthch@163.com">sdusthch@163.com</a>
+          <a href="https://github.com/hanchenghao12/hanchenghao12.github.io" target="_blank" rel="noopener">GitHub repository</a>
+          <span>RockFracPro research homepage and selected DFN publications.</span>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <span>© <span id="year"></span> Hancheng Hao</span>
+      <a href="#top">Back to top</a>
+    </footer>
+
+    <script src="assets/script.js"></script>
+  </body>
 </html>
